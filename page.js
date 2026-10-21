@@ -116,8 +116,12 @@
     if (window.ScrollTrigger) {
       gsap.registerPlugin(ScrollTrigger);
 
-      gsap.timeline({ scrollTrigger: { trigger: '.frame__disc', start: 'top 75%', once: true } })
-        .fromTo('.frame__disc .ring, .frame__disc .core', shut, open);
+      // the frame opens each time it comes back: it shuts once fully off screen, and plays again on the way back in
+      var frameOpen = gsap.timeline({ paused: true }).fromTo('.frame__disc .ring, .frame__disc .core', shut, open);
+      var replay = function () { if (frameOpen.progress() === 0) frameOpen.play(); };
+      ScrollTrigger.create({ trigger: '.frame__disc', start: 'top 75%', end: 'bottom 25%', onEnter: replay, onEnterBack: replay });
+      ScrollTrigger.create({ trigger: '.frame__disc', start: 'top bottom', end: 'bottom top',
+        onLeave: function () { frameOpen.pause(0); }, onLeaveBack: function () { frameOpen.pause(0); } });
 
       // headings, then their text, then the picture, a section at a time
       gsap.utils.toArray('section, .foot').forEach(function (sec) {
@@ -128,8 +132,9 @@
           scrollTrigger: { trigger: sec, start: 'top 80%', once: true } });
       });
 
-      gsap.from('.groove span', { scaleX: 0.15, transformOrigin: 'left center', ease: 'none', stagger: 0.05,
-        scrollTrigger: { trigger: '.groove', start: 'top bottom', end: 'top 55%', scrub: true } });
+      // starts once the band is well into view and is done by the middle of the screen
+      gsap.from('.groove span', { scaleX: 0.15, transformOrigin: 'left center', ease: 'none', stagger: 0.08,
+        scrollTrigger: { trigger: '.groove', start: 'top 85%', end: 'top 45%', scrub: 0.6 } });
       gsap.from('.visit__word', { yPercent: 18, ease: 'none',
         scrollTrigger: { trigger: '.visit', start: 'top 90%', end: 'top 40%', scrub: true } });
       gsap.from('.blocks span', { scaleY: 0.35, transformOrigin: 'bottom center', ease: 'none', stagger: 0.03,
