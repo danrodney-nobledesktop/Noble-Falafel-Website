@@ -175,7 +175,16 @@
   var toggle = document.querySelector('[data-nav-toggle]'), nav = document.getElementById('nav-list');
   if (toggle && nav) {
     var isOpen = function () { return toggle.getAttribute('aria-expanded') === 'true'; };
-    var setNav = function (on) { toggle.setAttribute('aria-expanded', on ? 'true' : 'false'); nav.classList.toggle('is-open', on); };
+    var setNav = function (on) {
+      toggle.setAttribute('aria-expanded', on ? 'true' : 'false');
+      nav.classList.toggle('is-open', on);
+      // on a phone the coloured links slide in one after another as the dropdown opens. Opacity, not
+      // visibility, so a keyboard user who tabs straight in still reaches every link
+      if (on && window.gsap && !still && getComputedStyle(toggle).display !== 'none') {
+        gsap.fromTo(nav.querySelectorAll('.nav__list a, .btn--bar'), { opacity: 0, x: -28 },
+          { opacity: 1, x: 0, duration: 0.45, ease: 'back.out(1.7)', stagger: 0.06, overwrite: true, clearProps: 'all' });
+      }
+    };
     toggle.addEventListener('click', function () { setNav(!isOpen()); });
     nav.addEventListener('click', function (e) { if (e.target.closest('a')) setNav(false); });
     document.addEventListener('click', function (e) { if (isOpen() && !nav.contains(e.target) && !toggle.contains(e.target)) setNav(false); });

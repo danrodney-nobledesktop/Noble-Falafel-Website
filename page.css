@@ -279,8 +279,10 @@ section[id] { scroll-margin-top: 24px; }
   .js .bar__toggle { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin-left: auto; padding: 0; border: 0; border-radius: 999px; background: var(--ground-2); cursor: pointer; transition: background-color .18s ease, transform .12s ease; }
   .js .bar__toggle:hover { background: #3A2316; }
   .js .bar__toggle:active { transform: scale(.94); }
-  .js .bar__toggle[aria-expanded="true"] .bar__stripes i:nth-child(1) { transform: translateX(-3px); }
-  .js .bar__toggle[aria-expanded="true"] .bar__stripes i:nth-child(3) { transform: translateX(6px); }
+  /* open, the stripes slide across so their right ends line up: the mirror of the closed, left-aligned stack.
+     The stack is 26px wide, so the 80% and 60% stripes move 5.2px and 10.4px */
+  .js .bar__toggle[aria-expanded="true"] .bar__stripes i:nth-child(2) { transform: translateX(5.2px); }
+  .js .bar__toggle[aria-expanded="true"] .bar__stripes i:nth-child(3) { transform: translateX(10.4px); }
   .js .nav { position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; padding: 8px var(--m) 24px; background: var(--ground); visibility: hidden; opacity: 0; transform: translateY(-8px); transition: opacity .2s ease, transform .2s var(--ease), visibility 0s linear .2s; }
   .js .nav.is-open { visibility: visible; opacity: 1; transform: none; transition: opacity .2s ease, transform .2s var(--ease); }
   /* each link is a pill only as wide as its words; on hover the fill empties and its colour stays as the border */
