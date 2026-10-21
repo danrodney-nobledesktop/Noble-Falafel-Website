@@ -218,6 +218,8 @@ section[id] { scroll-margin-top: 24px; }
 .panel__win { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; }
 .panel__win img { width: 100%; height: 100%; object-fit: cover; object-position: 55% 50%; filter: grayscale(1) contrast(1.05); transform: scale(1.08); transform-origin: 55% 62%; } /* the 1916 scan has a white edge along its top; the zoom keeps it out of the circle */
 .panel__right { display: flex; flex-direction: column; gap: 56px; align-items: flex-start; padding-top: 8px; }
+.panel__call { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+.panel__phone { font-size: 21px; font-weight: 700; white-space: nowrap; }
 .panel__block { display: flex; flex-direction: column; gap: 12px; max-width: 26em; }
 .panel__block h3 { font-size: 21px; line-height: 1.25; font-weight: 600; }
 .panel__block p { font-size: 18px; line-height: 1.6; max-width: 60ch; }
@@ -258,7 +260,7 @@ section[id] { scroll-margin-top: 24px; }
   .panel { grid-template-columns: minmax(0, 1fr); min-height: 0; padding-bottom: 0; }
   .panel__left { display: contents; }
   .panel__right { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 48px; }
-  .panel__right .btn { justify-self: start; }
+  .panel__right .panel__call { grid-column: 1 / -1; justify-self: start; }
   .panel__pic { order: 3; margin: 8px 0 -16vw; }
   .panel__rings { width: 56vw; }
   .foot__cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -324,6 +326,8 @@ section[id] { scroll-margin-top: 24px; }
   .panel__pic figcaption { flex: none; padding: 0; }
   .panel__rings { width: 80vw; align-self: center; }
   .panel__right { gap: 36px; }
+  .panel__call { gap: 10px 14px; }
+  .panel__phone { font-size: var(--b); }
   .blocks { flex-direction: column; gap: 4px; height: auto; min-height: 0; }
   .blocks__row { height: 16svh; min-height: 110px; }
   .foot__cols { grid-template-columns: 1fr 1fr; }
