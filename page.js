@@ -11,7 +11,7 @@
     if (day === 'Mon') return 'Closed today: we’re out buying chickpeas. Back Tuesday at 10am.';
     if (mins >= 600 && mins < 1260) {
       var left = 1260 - mins, hh = Math.floor(left / 60), mm = left % 60;
-      return 'Open now, frying until 9pm (' + (hh ? hh + 'h ' : '') + mm + 'm left).';
+      return 'Open now, frying until 9pm (' + (hh ? hh + 'h ' : '') + mm + 'm left)';
     }
     if (mins < 600) return 'Closed now. The fryer goes on at 10am today.';
     return day === 'Sun' ? 'Closed now. Back Tuesday at 10am.' : 'Closed now. Back tomorrow at 10am.';
