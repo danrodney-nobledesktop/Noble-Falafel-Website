@@ -27,7 +27,6 @@
   --display: 'Shrikhand', Georgia, serif;
   --text: 'Jost', system-ui, sans-serif;
   --ease: cubic-bezier(.2, .7, .2, 1);
-  --io: cubic-bezier(.76, 0, .24, 1);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -368,48 +367,12 @@ section[id] { scroll-margin-top: calc(var(--bar) + 60px); }
   .foot__mail { grid-column: 1 / -1; }
 }
 
-/* ---------- motion ---------- */
+/* ---------- motion ----------
+   CSS keeps the simple moves (hover, press, focus, the crossfade, one slow drift).
+   The sequences (the hero opening, the frame opening, the scroll reveals) run in GSAP, page.js. */
 @media (prefers-reduced-motion: no-preference) {
-  .hero__title span, .hero__sub, .hero__acts, .hero__status { animation: rise .8s var(--ease) both; }
-  .hero__title span:nth-child(2) { animation-delay: .08s; }
-  .hero__sub { animation-delay: .16s; }
-  .hero__acts { animation-delay: .24s; }
-  .hero__status { animation-delay: .32s; }
-  .hero__stripes span { animation: stretch 1s var(--ease) both; }
-  .hero__stripes span:nth-child(2) { animation-delay: .07s; }
-  .hero__stripes span:nth-child(3) { animation-delay: .14s; }
-  .hero__stripes span:nth-child(4) { animation-delay: .21s; }
-
-  /* the circle opens: each ring grows out of the centre, then the picture */
-  .js .rings .ring, .js .rings .core { clip-path: circle(0% at 50% 50%); }
-  .js .rings.is-open .ring, .js .rings.is-open .core { animation: open-ring 1s var(--io) both; }
-  .js .rings.is-open .ring--2 { animation-delay: .12s; }
-  .js .rings.is-open .ring--3 { animation-delay: .24s; }
-  .js .rings.is-open .ring--4 { animation-delay: .36s; }
-  .js .rings.is-open .core { animation-duration: 1.2s; animation-delay: .5s; }
-  .js .rings.is-open .core > img:only-child { animation: settle 1.8s var(--ease) .5s both; }
-  .js .hero__disc.is-open { animation: spin-in 1.6s var(--ease) both; }
-  .js .frame__disc.is-open .ring--2 { animation-delay: 0s; }
-  .js .frame__disc.is-open .ring--3 { animation-delay: .12s; }
-  .js .frame__disc.is-open .ring--4 { animation-delay: .24s; }
-  .js .frame__disc.is-open .core { animation-delay: .36s; }
   .slide.is-on:is(img) { animation: drift 6s linear both; }
-
-  @supports (animation-timeline: view()) {
-    .r1, .r2, .r3 { animation: rise linear both; animation-timeline: view(); }
-    .r1 { animation-range: entry 0% entry 55%; }
-    .r2 { animation-range: entry 8% entry 63%; }
-    .r3 { animation-range: entry 16% entry 71%; }
-    .groove span { animation: stretch linear both; animation-timeline: view(); animation-range: entry 0% cover 45%; }
-    .visit__word { animation: word-up linear both; animation-timeline: view(); animation-range: entry 10% cover 50%; }
-    .blocks span { animation: block-up linear both; animation-timeline: view(); animation-range: entry 0% entry 90%; transform-origin: bottom; }
-  }
+  /* held back until the hero timeline starts; the head script lets go after 3s whatever happens */
+  .motion .hero__copy > *, .motion .hero__stripes, .motion .hero__disc { visibility: hidden; }
 }
-@keyframes rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
-@keyframes open-ring { from { clip-path: circle(0% at 50% 50%); } to { clip-path: circle(50% at 50% 50%); } }
-@keyframes settle { from { transform: scale(1.16); } to { transform: none; } }
-@keyframes spin-in { from { rotate: -10deg; scale: .92; } to { rotate: 0deg; scale: 1; } }
 @keyframes drift { from { transform: scale(1.0); } to { transform: scale(1.08); } }
-@keyframes stretch { from { transform: scaleX(.15); } to { transform: none; } }
-@keyframes word-up { from { transform: translateY(18%); } to { transform: none; } }
-@keyframes block-up { from { transform: scaleY(.35); } to { transform: none; } }

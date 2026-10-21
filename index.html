@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Noble Falafel: falafel fried to order on Noble Street</title>
-<script>document.documentElement.classList.add('js')</script>
+<script>(function (d) { d.classList.add('js'); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) { d.classList.add('motion'); setTimeout(function () { d.classList.remove('motion'); }, 3000); } })(document.documentElement)</script>
 <meta name="description" content="Noble Falafel is a falafel cart at 123 Noble Street, New York. Fried to order, honest prices. Open Tuesday to Sunday, 10am to 9pm.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,7 +46,7 @@
     <p class="status hero__status"><span class="dot" aria-hidden="true"></span><span data-status>Open Tues–Sun, 10am–9pm</span></p>
   </div>
   <div class="hero__stripes" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-  <div class="hero__disc rings" data-open="load">
+  <div class="hero__disc rings">
     <div class="ring ring--1"><div class="ring ring--2"><div class="ring ring--3"><div class="ring ring--4">
       <figure class="core"><img src="img/falafel-1.jpg" width="1400" height="1050" alt="A green plate of falafel, one broken open to show the herb-green inside" fetchpriority="high"></figure>
     </div></div></div></div>
@@ -144,7 +144,7 @@
     <p class="r3">It's how falafel has been sold on streets from Aleppo to the Lower East Side for a long time. We just kept the good part.</p>
   </div>
   <figure class="frame" data-frame>
-    <div class="frame__disc rings" data-open="view">
+    <div class="frame__disc rings">
       <div class="ring ring--2"><div class="ring ring--3"><div class="ring ring--4">
         <button type="button" class="core frame__win" aria-label="Show the next picture">
           <video class="slide is-on" autoplay muted loop playsinline preload="metadata" poster="img/falafel-frying-poster.jpg" width="600" height="480" aria-hidden="true" data-caption="Batter scooped straight into the fryer.">
@@ -268,6 +268,8 @@
 </footer>
 
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="page.js" defer></script>
 </body>
 </html>

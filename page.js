@@ -97,17 +97,45 @@
     p.classList.toggle('is-open', /^Open now/.test(p.textContent.trim()));
   });
 
-  // the ringed circles open: the hero on load, the frame when it scrolls into view
-  var rings = [].slice.call(document.querySelectorAll('[data-open]'));
-  function open(el) { el.classList.add('is-open'); }
-  rings.forEach(function (el) { if (el.getAttribute('data-open') === 'load') requestAnimationFrame(function () { open(el); }); });
-  var later = rings.filter(function (el) { return el.getAttribute('data-open') === 'view'; });
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { open(e.target); io.unobserve(e.target); } });
-    }, { threshold: 0.3 });
-    later.forEach(function (el) { io.observe(el); });
-  } else later.forEach(open);
+  // the sequences, in GSAP: the hero opens on load, the frame when it scrolls in, the sections as they arrive.
+  // Without GSAP or with reduced motion everything simply sits at rest.
+  var root = document.documentElement;
+  if (window.gsap && !still) {
+    var open = { clipPath: 'circle(50% at 50% 50%)', duration: 1, ease: 'power3.inOut', stagger: 0.12 };
+    var shut = { clipPath: 'circle(0% at 50% 50%)' };
+
+    gsap.timeline({ defaults: { ease: 'power3.out' }, onStart: function () { root.classList.remove('motion'); } })
+      .from('.hero__copy > *', { autoAlpha: 0, y: 26, duration: 0.8, stagger: 0.08 }, 0)
+      .from('.hero__title span', { y: 26, duration: 0.8, stagger: 0.08 }, 0)
+      .from('.hero__stripes', { autoAlpha: 0, duration: 0.01 }, 0)
+      .from('.hero__stripes span', { scaleX: 0.15, transformOrigin: 'left center', duration: 1, stagger: 0.07 }, 0)
+      .from('.hero__disc', { autoAlpha: 0, rotation: -10, scale: 0.92, duration: 1.6 }, 0)
+      .fromTo('.hero__disc .ring, .hero__disc .core', shut, open, 0)
+      .from('.hero__disc .core img', { scale: 1.16, duration: 1.8 }, 0.5);
+
+    if (window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+
+      gsap.timeline({ scrollTrigger: { trigger: '.frame__disc', start: 'top 75%', once: true } })
+        .fromTo('.frame__disc .ring, .frame__disc .core', shut, open);
+
+      // headings, then their text, then the picture, a section at a time
+      gsap.utils.toArray('section, .foot').forEach(function (sec) {
+        var parts = gsap.utils.toArray(sec.querySelectorAll('.r1, .r2, .r3')).sort(function (x, y) {
+          return x.className.match(/r(\d)/)[1] - y.className.match(/r(\d)/)[1];
+        });
+        if (parts.length) gsap.from(parts, { autoAlpha: 0, y: 24, duration: 0.7, ease: 'power3.out', stagger: 0.08,
+          scrollTrigger: { trigger: sec, start: 'top 80%', once: true } });
+      });
+
+      gsap.from('.groove span', { scaleX: 0.15, transformOrigin: 'left center', ease: 'none', stagger: 0.05,
+        scrollTrigger: { trigger: '.groove', start: 'top bottom', end: 'top 55%', scrub: true } });
+      gsap.from('.visit__word', { yPercent: 18, ease: 'none',
+        scrollTrigger: { trigger: '.visit', start: 'top 90%', end: 'top 40%', scrub: true } });
+      gsap.from('.blocks span', { scaleY: 0.35, transformOrigin: 'bottom center', ease: 'none', stagger: 0.03,
+        scrollTrigger: { trigger: '.blocks', start: 'top bottom', end: 'bottom 85%', scrub: true } });
+    }
+  } else root.classList.remove('motion');
 
   // one frame, the contents change: every 3.2s while it is on screen, or on tap
   var frame = document.querySelector('[data-frame]');
