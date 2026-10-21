@@ -30,7 +30,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--text); font-size: var(--b); line-height: 1.55; }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
@@ -40,6 +40,7 @@ fieldset { border: 0; min-width: 0; }
 button, input { font: inherit; color: inherit; }
 ::selection { background: var(--gold); color: var(--ink-dark); }
 :focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+[tabindex="-1"]:focus { outline: none; }
 .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .nf { overflow: clip; }
 section[id] { scroll-margin-top: 24px; }
@@ -100,7 +101,8 @@ section[id] { scroll-margin-top: 24px; }
 .ring--4 { background: var(--gold); padding: 4.8%; }
 .core { position: relative; display: block; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; border-radius: 50%; overflow: hidden; background: var(--ground-2); }
 .core img, .core video { width: 100%; height: 100%; object-fit: cover; }
-.hero__disc { position: absolute; z-index: 1; width: min(118vh, 74vw); aspect-ratio: 1; left: 80%; top: 50%; translate: -50% -50%; }
+/* as tall as the screen allows with a little air, so its bottom is never cut; it still runs off the right edge */
+.hero__disc { position: absolute; z-index: 1; width: min(calc(100svh - 48px), 74vw); aspect-ratio: 1; left: 80%; top: 50%; translate: -50% -50%; }
 .hero__disc .core img { object-position: 50% 55%; }
 
 /* ---------- section folders ---------- */
@@ -186,13 +188,20 @@ section[id] { scroll-margin-top: 24px; }
 .week { display: flex; flex-direction: column; gap: 8px; font-size: var(--b); width: 100%; max-width: 30em; }
 .week li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 24px; padding: 12px 0; }
 .week li span:first-child { font-weight: 700; }
-.week li + li { background: rgba(46, 26, 16, .1); padding: 12px 18px; margin: 0 -18px; border-radius: 999px; }
 .find__more { max-width: 62ch; }
 .find__more a { font-weight: 700; }
 .find__map { display: flex; flex-direction: column; gap: 16px; }
-.find__map-win { aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: var(--cream); }
-.find__map-win img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; filter: grayscale(1) contrast(1.05); }
-.find__map figcaption { font-size: var(--s); text-align: center; max-width: 40ch; align-self: center; }
+/* the map sits in the page's circle; the circle crops Google's corner credit, so the caption carries it */
+/* the same four rings as the hero circle, maroon outermost so the edge shows against the orange */
+.find__rings { width: 100%; max-width: 100%; aspect-ratio: 1; }
+.find__map-win { position: relative; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: var(--cream); }
+/* the frame overhangs the circle by the size of Google's place card on every side, so the card (always
+   drawn in the frame's top-left corner) falls outside the circle while the pin stays in its centre */
+.find__map-win iframe { position: absolute; top: -160px; left: -340px; width: calc(100% + 680px); height: calc(100% + 320px); display: block; border: 0; }
+.find__map figcaption { font-size: var(--s); font-weight: 600; text-align: center; align-self: center; }
+.find__map figcaption a { text-underline-offset: 3px; }
+.find__credit { display: block; margin-top: 4px; font-weight: 400; }
+.find__map figcaption a:hover { color: var(--ink-dark); text-decoration-thickness: 2px; }
 
 /* ---------- CATERING coupon ---------- */
 .catering { background: var(--accent); color: var(--cream); padding-block: clamp(56px, 7vw, 120px); }
@@ -203,11 +212,15 @@ section[id] { scroll-margin-top: 24px; }
 .coupon__left { padding: 48px; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; border-right: 6px dotted var(--accent); }
 .coupon__h { font-family: var(--display); font-weight: 400; font-size: var(--md); line-height: 1.1; max-width: 12ch; }
 .coupon__left p { font-size: var(--b); line-height: 1.55; }
-.coupon__right { padding: 48px; display: flex; flex-direction: column; gap: 10px; justify-content: center; }
-.coupon input { height: 54px; padding: 0 22px; border: 0; border-radius: 999px; background: var(--gold-2); color: var(--ink-dark); font-size: var(--b); }
-.coupon input::placeholder { color: #5A3A20; opacity: 1; }
+.coupon__right { padding: 48px; display: flex; flex-direction: column; gap: 16px; justify-content: center; }
+/* every field is named above its box, never by a placeholder inside it */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: var(--s); font-weight: 600; line-height: 1.3; }
+.field--dark label { color: var(--ink); }
+/* fields: nearly square top-left and bottom-right corners, round top-right and bottom-left */
+.coupon input { height: 54px; padding: 0 22px; border: 0; border-radius: 4px 35px 4px 35px; background: var(--gold-2); color: var(--ink-dark); font-size: var(--b); }
 .coupon input:focus-visible { outline: 3px solid var(--ink-dark); outline-offset: 2px; }
-.coupon__go { display: flex; align-items: center; justify-content: center; text-decoration: none; height: 58px; margin-top: 6px; border: 0; border-radius: 999px; background: var(--ink-dark); color: var(--cream); font-size: var(--b); font-weight: 600; cursor: pointer; transition: background-color .18s ease, transform .12s ease; }
+.coupon__go { display: inline-flex; align-self: flex-start; align-items: center; justify-content: center; text-decoration: none; height: 58px; padding: 0 32px; margin-top: 6px; border: 0; border-radius: 999px; background: var(--ink-dark); color: var(--cream); font-size: var(--b); font-weight: 600; cursor: pointer; transition: background-color .18s ease, transform .12s ease; }
 .coupon__go:hover { background: var(--maroon); }
 .coupon__go:active { transform: scale(.98); }
 
@@ -249,8 +262,7 @@ section[id] { scroll-margin-top: 24px; }
 .foot__col a { color: var(--ink); text-decoration-color: rgba(241, 229, 207, .45); text-underline-offset: 3px; }
 .foot__col a:hover { color: var(--gold); }
 .foot__row { display: flex; flex-wrap: wrap; gap: 10px; }
-.foot__row input { flex: 1 1 200px; min-width: 0; height: 52px; padding: 0 20px; border: 0; border-radius: 999px; background: var(--ground); color: var(--ink); font-size: var(--b); }
-.foot__row input::placeholder { color: #CDB898; opacity: 1; }
+.foot__row input { flex: 1 1 200px; min-width: 0; height: 52px; padding: 0 20px; border: 0; border-radius: 4px 35px 4px 35px; background: var(--ground); color: var(--ink); font-size: var(--b); }
 .credits { margin-top: 56px; font-size: var(--s); line-height: 1.6; }
 .credits__h { font-size: var(--s); font-weight: 700; color: var(--gold); }
 .credits__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 40px; margin-top: 16px; }
@@ -263,8 +275,8 @@ section[id] { scroll-margin-top: 24px; }
   .hero__copy { max-width: none; padding: 56px var(--m) 40px calc(var(--m) + var(--pad)); }
   .hero__title { font-size: 10.5vw; }
   .hero__sub { max-width: 34ch; }
-  .hero__stripes { margin-top: 0; padding-bottom: 0; position: absolute; left: 0; right: 0; bottom: 22vw; }
-  .hero__disc { position: relative; left: auto; top: auto; translate: none; width: 112vw; margin: 8px 0 -40vw 22vw; }
+  .hero__stripes { margin-top: 0; padding-bottom: 0; position: absolute; left: 0; right: 0; bottom: 34vw; }
+  .hero__disc { position: relative; left: auto; top: auto; translate: none; width: 88vw; margin: 8px 0 24px 22vw; }
   .pita { grid-template-columns: minmax(0, 1fr); min-height: 0; align-items: start; }
   .pita__disc-wrap, .pita__pick { grid-column: 1; grid-row: auto; }
   .pita__disc-wrap { justify-self: center; }
@@ -296,14 +308,15 @@ section[id] { scroll-margin-top: 24px; }
   .js .bar__toggle[aria-expanded="true"] .bar__stripes i:nth-child(3) { transform: translateX(6px); }
   .js .nav { position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; padding: 8px var(--m) 24px; background: var(--ground); visibility: hidden; opacity: 0; transform: translateY(-8px); transition: opacity .2s ease, transform .2s var(--ease), visibility 0s linear .2s; }
   .js .nav.is-open { visibility: visible; opacity: 1; transform: none; transition: opacity .2s ease, transform .2s var(--ease); }
-  .js .nav__list { flex-direction: column; gap: 4px; margin: 0 0 16px; }
-  .js .nav__list a { display: flex; align-items: center; min-height: 52px; padding: 0 20px; border-radius: 999px; font-family: var(--display); font-size: 26px; }
-  .js .nav__list li:nth-child(1) a { background: var(--gold); color: var(--ink-dark); }
-  .js .nav__list li:nth-child(2) a { background: var(--orange); color: var(--ink-dark); }
-  .js .nav__list li:nth-child(3) a { background: var(--accent); color: var(--cream); }
-  .js .nav__list li:nth-child(4) a { background: var(--maroon); color: var(--cream); }
-  .js .nav__list li:nth-child(5) a { background: var(--cream); color: var(--ink-dark); }
-  .js .nav__list a:hover { text-decoration-color: currentColor; }
+  /* each link is a pill only as wide as its words; on hover the fill empties and its colour stays as the border */
+  .js .nav__list { flex-direction: column; align-items: flex-start; gap: 6px; margin: 0 0 16px; }
+  .js .nav__list a { display: inline-flex; align-items: center; min-height: 52px; padding: 0 20px; border: 3px solid var(--pill); border-radius: 999px; background: var(--pill); color: var(--pill-ink); font-family: var(--display); font-size: 26px; text-decoration: none; transition: background-color .18s ease, color .18s ease; }
+  .js .nav__list li:nth-child(1) a { --pill: var(--gold); --pill-ink: var(--ink-dark); }
+  .js .nav__list li:nth-child(2) a { --pill: var(--orange); --pill-ink: var(--ink-dark); }
+  .js .nav__list li:nth-child(3) a { --pill: var(--accent); --pill-ink: var(--cream); }
+  .js .nav__list li:nth-child(4) a { --pill: var(--maroon); --pill-ink: var(--cream); }
+  .js .nav__list li:nth-child(5) a { --pill: var(--cream); --pill-ink: var(--ink-dark); }
+  .js .nav__list a:hover, .js .nav__list a:focus-visible { background: transparent; color: var(--cream); }
   .js .btn--bar { align-self: flex-start; }
   html:not(.js) .bar { position: relative; height: auto; flex-wrap: wrap; padding-block: 16px; }
   html:not(.js) .hero { padding-top: 0; }
@@ -319,9 +332,9 @@ section[id] { scroll-margin-top: 24px; }
   .hero__copy { padding: 40px var(--m) 28px; gap: 22px; }
   .hero__title { font-size: 11.5vw; line-height: .95; }
   .hero__sub { font-size: var(--b); }
-  .hero__stripes { bottom: 34vw; gap: 8px; }
+  .hero__stripes { bottom: 40vw; gap: 8px; }
   .hero__stripes span { height: 14px; }
-  .hero__disc { width: 128vw; margin: 4px 0 -52vw 4vw; }
+  .hero__disc { width: 100vw; margin: 4px 0 24px 10vw; }
   .pita { gap: 28px; }
   .pita__disc-wrap { flex-direction: column; gap: 20px; width: 100%; }
   .disc { width: 86vw; max-width: 420px; }
@@ -367,8 +380,17 @@ section[id] { scroll-margin-top: 24px; }
    CSS keeps the simple moves (hover, press, focus, the crossfade, one slow drift).
    The sequences (the hero opening, the frame opening, the scroll reveals) run in GSAP, page.js. */
 @media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
   .slide.is-on:is(img) { animation: drift 6s linear both; }
   /* held back until the hero timeline starts; the head script lets go after 3s whatever happens */
   .motion .hero__copy > *, .motion .hero__stripes, .motion .hero__disc { visibility: hidden; }
 }
 @keyframes drift { from { transform: scale(1.0); } to { transform: scale(1.08); } }
+
+/* reduced motion: nothing moves. Colours still change on hover, instantly; nothing slides, scales or fades. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .btn:active, .chip:active, .coupon__go:active, .bar__toggle:active, .name:hover, .visit:hover .visit__arrow,
+  .bar__toggle[aria-expanded="true"] .bar__stripes i, .nav { transform: none !important; }
+}

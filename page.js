@@ -1,14 +1,14 @@
 (function () {
   var DISHES = {
-    pita: { name: 'Classic pita', price: 7, fact: 'Five falafel, fried when you order, so they reach you crackling.',
+    pita: { name: 'Classic Pita', price: 7, fact: 'Five falafel, fried when you order, so they reach you crackling.',
       layers: [['Pita', '#D9A55B', 1], ['Parsley', '#4F7A2E', .7], ['Tomato & cucumber', '#E8332A', 1], ['Five falafel', '#6B3A1A', 2.2], ['Pickled turnip', '#D9476B', .7], ['Tahini', '#EFE0C0', .9], ['Pita', '#D9A55B', 1]] },
-    sabich: { name: 'Sabich pita', price: 8, fact: 'Fried eggplant and egg instead of falafel, with sour mango amba.',
+    sabich: { name: 'Sabich Pita', price: 8, fact: 'Fried eggplant and egg instead of falafel, with sour mango amba.',
       layers: [['Pita', '#D9A55B', 1], ['Amba', '#E9A21F', .7], ['Chopped salad', '#E8332A', 1], ['Fried eggplant', '#4B2A3A', 1.6], ['Egg', '#F6D25A', .9], ['Tahini', '#EFE0C0', .8], ['Pita', '#D9A55B', 1]] },
-    platter: { name: 'Falafel platter', price: 11, fact: 'Six falafel over vermicelli rice, for when lunch needs a fork.',
+    platter: { name: 'Falafel Platter', price: 11, fact: 'Six falafel over vermicelli rice, for when lunch needs a fork.',
       layers: [['Salad', '#8DB255', 1], ['Six falafel', '#6B3A1A', 2.2], ['Hummus', '#D9B77E', 1.2], ['Vermicelli rice', '#F4E8D2', 1.6], ['Pita on the side', '#D9A55B', 1]] },
-    bowl: { name: 'Hummus bowl', price: 9, fact: 'Warm whole chickpeas on hummus. Gluten-free without the pita.',
+    bowl: { name: 'Hummus Bowl', price: 9, fact: 'Warm whole chickpeas on hummus. Gluten-free without the pita.',
       layers: [['Olive oil & sumac', '#C0232B', .6], ['Whole chickpeas', '#E3C27A', 1.2], ['Hummus', '#D9B77E', 2.6], ['Warm pita', '#D9A55B', 1]] },
-    fries: { name: 'Fries & dip', price: 5, fact: 'Seasoned fries with garlic sauce or spicy sauce. Gluten-free.',
+    fries: { name: 'Fries & Dip', price: 5, fact: 'Seasoned fries with garlic sauce or spicy sauce. Gluten-free.',
       layers: [['Spicy sauce', '#EE6B24', .8], ['Seasoned fries', '#F2B024', 3], ['Garlic sauce', '#F4E8D2', .9]] }
   };
   var EXTRAS = {
@@ -52,6 +52,7 @@
     var swapTimer;
     function show(id) {
       clearTimeout(swapTimer);
+      if (still) { paint(id); return; }
       disc.classList.add('is-swapping');
       swapTimer = setTimeout(function () { paint(id); disc.classList.remove('is-swapping'); }, 160);
     }
@@ -90,7 +91,7 @@
   function tick() { var t = statusText(); [].forEach.call(st, function (e) { e.textContent = t; }); }
   if (st.length) { tick(); setInterval(tick, 60000); }
 
-  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches, stopSlides = function () {};
 
   // the open dot goes green while the fryer is on
   [].forEach.call(document.querySelectorAll('.hero__status'), function (p) {
@@ -116,12 +117,17 @@
     if (window.ScrollTrigger) {
       gsap.registerPlugin(ScrollTrigger);
 
-      // the frame opens each time it comes back: it shuts once fully off screen, and plays again on the way back in
-      var frameOpen = gsap.timeline({ paused: true }).fromTo('.frame__disc .ring, .frame__disc .core', shut, open);
-      var replay = function () { if (frameOpen.progress() === 0) frameOpen.play(); };
-      ScrollTrigger.create({ trigger: '.frame__disc', start: 'top 75%', end: 'bottom 25%', onEnter: replay, onEnterBack: replay });
-      ScrollTrigger.create({ trigger: '.frame__disc', start: 'top bottom', end: 'bottom top',
-        onLeave: function () { frameOpen.pause(0); }, onLeaveBack: function () { frameOpen.pause(0); } });
+      // the ringed circles further down (the fried frame, the map) open each time they come back:
+      // they shut once fully off screen, and play again on the way back in
+      var ringsOpenOnReturn = function (circle, parts) {
+        var opening = gsap.timeline({ paused: true }).fromTo(parts, shut, open);
+        var replay = function () { if (opening.progress() === 0) opening.play(); };
+        var reset = function () { opening.pause(0); };
+        ScrollTrigger.create({ trigger: circle, start: 'top 75%', end: 'bottom 25%', onEnter: replay, onEnterBack: replay });
+        ScrollTrigger.create({ trigger: circle, start: 'top bottom', end: 'bottom top', onLeave: reset, onLeaveBack: reset });
+      };
+      ringsOpenOnReturn('.frame__disc', '.frame__disc .ring, .frame__disc .core');
+      ringsOpenOnReturn('.find__rings', '.find__rings .ring, .find__rings .find__map-win');
 
       // headings, then their text, then the picture, a section at a time
       gsap.utils.toArray('section, .foot').forEach(function (sec) {
@@ -157,9 +163,37 @@
     frame.querySelector('.frame__win').addEventListener('click', function () { go(i + 1); run(); });
     document.addEventListener('visibilitychange', function () { document.hidden ? stop() : run(); });
     if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { seen = en[0].isIntersecting; seen ? run() : stop(); }).observe(frame);
+    // the video only plays when motion is welcome; otherwise its poster frame stands still
     var video = frame.querySelector('video');
-    if (still && video) { video.removeAttribute('autoplay'); video.pause(); }
+    if (video && !still) { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+    stopSlides = function () { stop(); if (video) video.pause(); };
   }
+
+  // turning reduced motion on while the page is open settles everything where it would end and stops the rest
+  var motionPref = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var calm = function () {
+    if (!motionPref.matches) return;
+    still = true;
+    root.classList.remove('motion');
+    // jump every scroll-driven tween to its end before its trigger goes, or it would stay at its hidden start
+    if (window.ScrollTrigger) ScrollTrigger.getAll().forEach(function (t) { if (t.animation) t.animation.progress(1); t.kill(); });
+    if (window.gsap) gsap.globalTimeline.getChildren(true, true, true).forEach(function (t) { t.progress(1).kill(); });
+    stopSlides();
+  };
+  if (motionPref.addEventListener) motionPref.addEventListener('change', calm); else if (motionPref.addListener) motionPref.addListener(calm);
+
+  // in-page links scroll to their section without adding #section to the address bar
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var target = document.getElementById(a.getAttribute('href').slice(1));
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'start' });
+    // keyboard and screen reader users land in the section they picked
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
+  });
 
   // the bar: a dropdown on narrow screens, and the link for the section you are in
   var toggle = document.querySelector('[data-nav-toggle]'), nav = document.getElementById('nav-list');
