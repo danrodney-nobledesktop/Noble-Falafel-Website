@@ -8,7 +8,7 @@
   --gold: #F2B024;
   --gold-2: #F7CB66;
   --orange: #EE6B24;
-  --red: #E8332A;
+  --orange-light: #F59A62;
   --accent: #C0232B;
   --maroon: #8E1B1F;
 
@@ -50,6 +50,8 @@ section[id] { scroll-margin-top: 24px; }
 .btn--dark { background: var(--ink-dark); color: var(--cream); }
 .btn--dark:hover { background: var(--maroon); }
 .btn--small { min-height: 44px; padding: 0 20px; font-size: var(--s); }
+.btn--gold { background: var(--gold); color: var(--ink-dark); }
+.btn--gold:hover { background: var(--cream); }
 
 .sec-h { font-family: var(--display); font-weight: 400; font-size: var(--l); line-height: 1; letter-spacing: -0.01em; }
 
@@ -107,12 +109,12 @@ section[id] { scroll-margin-top: 24px; }
 .hero + main > .gap-top:first-child { margin-top: clamp(88px, 8vw, 120px); }
 
 /* ---------- MENU ---------- */
-.menu { background: var(--gold); }
+.menu { background: var(--cream); }
 .menu__top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 64px; align-items: end; }
 .menu__lede { font-size: 21px; line-height: 1.5; max-width: 44ch; }
 .cat { margin-top: 96px; }
 .cat__head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
-.cat__h { font-family: var(--display); font-weight: 400; font-size: var(--md); line-height: 1.1; }
+.cat__h { font-family: var(--display); font-weight: 400; font-size: var(--md); line-height: 1.1; font-kerning: none; } /* Shrikhand's kerning pulls the e of "side" into the d */
 .cat__n { font-size: var(--s); font-weight: 600; }
 .items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 64px; }
 .item { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 20px; align-items: start; }
@@ -149,7 +151,7 @@ section[id] { scroll-margin-top: 24px; }
 .fried__text p { font-size: 21px; line-height: 1.6; max-width: 62ch; }
 
 /* ---------- FIND ---------- */
-.find { background: var(--orange); display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 48px clamp(40px, 5vw, 96px); align-items: center; }
+.find { background: var(--gold); display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 48px clamp(40px, 5vw, 96px); align-items: center; }
 .find__text { display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
 .find__text .sec-h { margin-bottom: 8px; }
 .find__addr { font-family: var(--display); font-size: var(--md); line-height: 1.15; }
@@ -160,8 +162,8 @@ section[id] { scroll-margin-top: 24px; }
 .find__more { max-width: 62ch; }
 .find__more a { font-weight: 700; }
 .find__map { display: flex; flex-direction: column; gap: 16px; }
-/* the map sits in the page's circle; the circle crops Google's corner credit, so the caption carries it */
-/* the same four rings as the hero circle, maroon outermost so the edge shows against the orange */
+/* the map sits in the page's ringed circle, maroon outermost so the edge shows against the gold.
+   The circle crops Google's corner credit, so the caption carries it */
 .find__rings { width: 100%; max-width: 100%; aspect-ratio: 1; }
 .find__map-win { position: relative; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: var(--cream); }
 /* the frame overhangs the circle by the size of Google's place card on every side, so the card (always
@@ -170,7 +172,7 @@ section[id] { scroll-margin-top: 24px; }
 .find__map figcaption { font-size: var(--s); font-weight: 600; text-align: center; align-self: center; }
 .find__map figcaption a { text-underline-offset: 3px; }
 .find__credit { display: block; margin-top: 4px; font-weight: 400; }
-.find__map figcaption a:hover { color: var(--ink-dark); text-decoration-thickness: 2px; }
+.find__map figcaption a:hover { text-decoration-thickness: 2px; }
 
 /* ---------- CATERING coupon ---------- */
 .catering { background: var(--accent); color: var(--cream); padding-block: clamp(56px, 7vw, 120px); }
@@ -194,10 +196,11 @@ section[id] { scroll-margin-top: 24px; }
 .coupon__go:active { transform: scale(.98); }
 
 /* ---------- STORY panel ---------- */
-.story { background: var(--maroon); color: var(--cream); padding: 0; overflow: visible; }
+/* a lighter orange than the rings', so the photo's orange ring stays distinct and the text reads at 7.6:1 */
+.story { background: var(--orange-light); color: var(--ink-dark); padding: 0; overflow: visible; }
 .panel { position: relative; overflow: hidden; border-radius: var(--r); display: grid; grid-template-columns: minmax(0, 60fr) minmax(0, 40fr); gap: 48px; padding: var(--pad); }
 .panel__left { display: flex; flex-direction: column; gap: 48px; }
-.panel__h { font-family: var(--display); font-weight: 400; font-size: var(--l); line-height: 1; max-width: 11ch; color: var(--gold); }
+.panel__h { font-family: var(--display); font-weight: 400; font-size: var(--l); line-height: 1; max-width: 11ch; color: var(--ink-dark); }
 .panel__pic { margin-top: auto; margin-bottom: calc(-1 * var(--pad) - 8vw); display: flex; align-items: center; gap: 24px; }
 .panel__pic figcaption { flex: 0 1 200px; padding-bottom: 8vw; }
 .panel__win { flex: 0 0 auto; width: min(40vw, 620px); aspect-ratio: 1; border-radius: 50%; overflow: hidden; }
@@ -222,7 +225,8 @@ section[id] { scroll-margin-top: 24px; }
 .foot__col a { color: var(--ink); text-decoration-color: rgba(241, 229, 207, .45); text-underline-offset: 3px; }
 .foot__col a:hover { color: var(--gold); }
 .foot__row { display: flex; flex-wrap: wrap; gap: 10px; }
-.foot__row input { flex: 1 1 200px; min-width: 0; height: 52px; padding: 0 20px; border: 0; border-radius: 4px 35px 4px 35px; background: var(--ground); color: var(--ink); font-size: var(--b); }
+.foot__row input { flex: 1 1 200px; min-width: 0; height: 52px; padding: 0 20px; border: 0; border-radius: 4px 35px 4px 35px; background: var(--cream); color: var(--ink-dark); font-size: var(--b); }
+.foot__row input:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 .foot__last { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin-top: 56px; font-size: var(--s); }
 
 /* ---------- tablet ---------- */
@@ -283,8 +287,8 @@ section[id] { scroll-margin-top: 24px; }
   .hero__stripes span { height: 14px; }
   .hero__disc { width: 100vw; margin: 4px 0 24px 10vw; }
   .items { grid-template-columns: 1fr; }
-  .item { grid-template-columns: 48px minmax(0, 1fr); gap: 16px; }
-  .bullet { width: 48px; height: 48px; }
+  .item { grid-template-columns: 30px minmax(0, 1fr); gap: 14px; }
+  .bullet { width: 30px; height: 30px; margin-top: 2px; }
   .cat { margin-top: 64px; }
   .cat__h { font-size: 8.5vw; }
   .fried { padding: 80px calc(var(--m) + var(--pad)) 32px; }
