@@ -99,8 +99,10 @@ section[id] { scroll-margin-top: 24px; }
 .ring--4 { background: var(--gold); padding: 4.8%; }
 .core { position: relative; display: block; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; border-radius: 50%; overflow: hidden; background: var(--ground-2); }
 .core img, .core video { width: 100%; height: 100%; object-fit: cover; }
-/* as tall as the screen allows with a little air, so its bottom is never cut; it still runs off the right edge */
-.hero__disc { position: absolute; z-index: 1; width: min(calc(100svh - 48px), 74vw); aspect-ratio: 1; left: 80%; top: 50%; translate: -50% -50%; }
+/* as tall as the screen allows with a little air, so its bottom is never cut; it still runs off the right edge.
+   Placed by left/top, not by translate: GSAP folds a CSS translate into its inline transform, which then
+   outlives a resize into the stacked layout and drags the circle over the text */
+.hero__disc { --disc: min(calc(100svh - 48px), 74vw); position: absolute; z-index: 1; width: var(--disc); aspect-ratio: 1; left: calc(80% - var(--disc) / 2); top: calc(50% - var(--disc) / 2); }
 .hero__disc .core img { object-position: 50% 55%; }
 
 /* ---------- section panels ---------- */
@@ -247,7 +249,7 @@ section[id] { scroll-margin-top: 24px; }
   .hero__title { font-size: 10.5vw; }
   .hero__sub { max-width: 34ch; }
   .hero__stripes { margin-top: 0; padding-bottom: 0; position: absolute; left: 0; right: 0; bottom: 34vw; }
-  .hero__disc { position: relative; left: auto; top: auto; translate: none; width: 88vw; margin: 8px 0 24px 22vw; }
+  .hero__disc { position: relative; left: auto; top: auto; width: 88vw; margin: 8px 0 24px 22vw; }
   .fried { grid-template-columns: minmax(0, 1fr); padding-top: 96px; }
   .fried .frame, .fried .fried__text { grid-column: 1; grid-row: auto; }
   .fried .frame { justify-self: center; width: min(72vw, 560px); }

@@ -158,8 +158,8 @@
         <p>Office lunches, birthdays, block parties, and weddings. We roll up with the fryer, or drop off trays ready to share. Fill in the coupon and it opens an email to us.</p>
       </div>
       <div class="coupon__right">
-        <div class="field"><label for="c-name">Your Name</label><input id="c-name" name="name" autocomplete="name"></div>
-        <div class="field"><label for="c-mail">Email</label><input id="c-mail" name="email" type="email" autocomplete="email"></div>
+        <div class="field"><label for="c-name">Your Name</label><input id="c-name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="c-mail">Email</label><input id="c-mail" name="email" type="email" autocomplete="email" required></div>
         <div class="field"><label for="c-date">Date of the Event</label><input id="c-date" name="date"></div>
         <div class="field"><label for="c-n">How Many People</label><input id="c-n" name="people" inputmode="numeric"></div>
         <button class="coupon__go" type="submit">Send Catering Request</button>
@@ -208,12 +208,14 @@
   <div class="foot__cols r2">
     <div class="foot__col"><h2>Visit</h2><p>123 Noble Street<br>New York, NY 10016</p><p>Tues–Sun, 10am–9pm<br>Closed Mondays</p></div>
     <div class="foot__col"><h2>Call</h2><p><a href="tel:+12121231234">212-123-1234</a></p><p><a href="#catering">Catering Requests</a></p></div>
+    <!-- placeholders until the cart's real accounts exist -->
     <div class="foot__col"><h2>Follow</h2><p><a href="#instagram">Instagram</a><br><a href="#tiktok">TikTok</a><br><a href="#google">Review Us on Google</a></p></div>
     <form class="foot__col foot__mail" data-dispatch>
       <h2>The Falafel Dispatch</h2>
       <p>One email a month: specials and secret menu drops.</p>
-      <div class="field field--dark"><label for="d-mail">Email</label>
-      <div class="foot__row"><input id="d-mail" type="email" name="email" autocomplete="email"><button class="btn" type="submit">Sign Me Up</button></div>
+      <div class="field field--dark">
+        <label for="d-mail">Email</label>
+        <div class="foot__row"><input id="d-mail" type="email" name="email" autocomplete="email" required><button class="btn" type="submit">Sign Me Up</button></div>
       </div>
     </form>
   </div>
