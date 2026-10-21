@@ -46,7 +46,7 @@
   <div class="hero__stripes" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
   <div class="hero__disc rings">
     <div class="ring ring--1"><div class="ring ring--2"><div class="ring ring--3"><div class="ring ring--4">
-      <figure class="core"><img src="img/falafel-1.jpg" width="1400" height="1050" alt="A green plate of falafel, one broken open to show the herb-green inside" fetchpriority="high"></figure>
+      <figure class="core"><picture><source type="image/avif" srcset="img/falafel-1-1093.avif 1093w, img/falafel-1-1707.avif 1707w, img/falafel-1-2560.avif 2560w" sizes="(max-width: 720px) 92vw, (max-width: 1080px) 81vw, min(calc(92vh - 44px), 68vw)"><source type="image/webp" srcset="img/falafel-1-1093.webp 1093w, img/falafel-1-1707.webp 1707w, img/falafel-1-2560.webp 2560w" sizes="(max-width: 720px) 92vw, (max-width: 1080px) 81vw, min(calc(92vh - 44px), 68vw)"><img src="img/falafel-1-1707.jpg" srcset="img/falafel-1-1093.jpg 1093w, img/falafel-1-1707.jpg 1707w, img/falafel-1-2560.jpg 2560w" sizes="(max-width: 720px) 92vw, (max-width: 1080px) 81vw, min(calc(92vh - 44px), 68vw)" width="2560" height="1920" alt="A green plate of falafel, one broken open to show the herb-green inside" fetchpriority="high"></picture></figure>
     </div></div></div></div>
   </div>
 </section>
@@ -110,15 +110,17 @@
     <div class="frame__disc rings">
       <div class="ring ring--2"><div class="ring ring--3"><div class="ring ring--4">
         <button type="button" class="core frame__win" aria-label="Show the next picture">
-          <video class="slide is-on" muted loop playsinline preload="metadata" poster="img/falafel-frying-poster.jpg" width="600" height="480" aria-hidden="true" data-caption="Batter scooped straight into the fryer.">
-            <source src="img/falafel-frying.mp4" type="video/mp4">
+          <video class="slide is-on" muted loop playsinline preload="metadata" poster="img/falafel-frying-poster-1120.jpg" width="1120" height="896" aria-hidden="true" data-caption="Batter scooped straight into the fryer.">
+            <!-- AV1 where the browser can play it; H.264 everywhere else -->
+            <source src="img/falafel-frying-av1.mp4" type='video/mp4; codecs="av01.0.05M.08"'>
+            <source src="img/falafel-frying-h264.mp4" type='video/mp4; codecs="avc1.640020"'>
           </video>
-          <img class="slide" src="img/falafels-2.jpg" width="1400" height="788" alt="Rows of freshly fried falafel, crisp and dark brown" loading="lazy" data-caption="Falafel straight from the oil.">
-          <img class="slide" src="img/bowl-of-falafel.jpg" width="1050" height="1400" alt="A white bowl of round, deep-brown falafel" loading="lazy" data-caption="A bowl of falafel, still crackling.">
-          <img class="slide" src="img/falafel-frying-in-aleppo.jpg" width="1400" height="1050" alt="A cook drops falafel batter into a wide pan of hot oil in Aleppo" loading="lazy" data-caption="Falafel frying in Aleppo, 2010.">
-          <img class="slide" src="img/falafel-and-homemade-hummus-lavash-2024-09.jpg" width="1050" height="1400" alt="Two falafel on hummus with flatbread in a basket" loading="lazy" data-caption="Falafel on hummus, flatbread on the side.">
-          <img class="slide" src="img/ordinary-chickpeas-in-a-ceramic-bowl.jpg" width="1400" height="933" alt="Dried chickpeas in a ceramic bowl" loading="lazy" data-caption="Dried chickpeas, soaked overnight before they're ground.">
-          <img class="slide" src="img/homemade-hummus-and-pita-03.jpg" width="1400" height="1050" alt="A pita filled with hummus beside chopped tomato and red onion" loading="lazy" data-caption="Warm pita, hummus, tomato, and onion.">
+          <picture><source type="image/avif" srcset="img/falafel-in-istanbul-720.avif 720w, img/falafel-in-istanbul-960.avif 960w" sizes="(max-width: 720px) 63vw, (max-width: 1080px) min(54vw, 421px), 451px"><source type="image/webp" srcset="img/falafel-in-istanbul-720.webp 720w, img/falafel-in-istanbul-960.webp 960w" sizes="(max-width: 720px) 63vw, (max-width: 1080px) min(54vw, 421px), 451px"><img class="slide" src="img/falafel-in-istanbul-720.jpg" srcset="img/falafel-in-istanbul-720.jpg 720w, img/falafel-in-istanbul-960.jpg 960w" sizes="(max-width: 720px) 63vw, (max-width: 1080px) min(54vw, 421px), 451px" width="960" height="1280" style="object-position: 40% 62%" alt="A plate of crisp falafel with herbs, a yogurt dip, pickles, tomato, and cucumber" loading="lazy" data-caption="Falafel with pickles and salad, in Istanbul."></picture>
+          <picture><source type="image/avif" srcset="img/falafel-platter-close-up-960.avif 960w, img/falafel-platter-close-up-1280.avif 1280w" sizes="(max-width: 720px) 84vw, (max-width: 1080px) min(72vw, 562px), 602px"><source type="image/webp" srcset="img/falafel-platter-close-up-960.webp 960w, img/falafel-platter-close-up-1280.webp 1280w" sizes="(max-width: 720px) 84vw, (max-width: 1080px) min(72vw, 562px), 602px"><img class="slide" src="img/falafel-platter-close-up-960.jpg" srcset="img/falafel-platter-close-up-960.jpg 960w, img/falafel-platter-close-up-1280.jpg 1280w" sizes="(max-width: 720px) 84vw, (max-width: 1080px) min(72vw, 562px), 602px" width="1280" height="960" alt="A falafel broken open to show its green inside, on hummus with tahini" loading="lazy" data-caption="Crisp outside, soft and green inside."></picture>
+          <picture><source type="image/avif" srcset="img/falafel-before-frying-960.avif 960w, img/falafel-before-frying-1280.avif 1280w" sizes="(max-width: 720px) 84vw, (max-width: 1080px) min(72vw, 562px), 602px"><source type="image/webp" srcset="img/falafel-before-frying-960.webp 960w, img/falafel-before-frying-1280.webp 1280w" sizes="(max-width: 720px) 84vw, (max-width: 1080px) min(72vw, 562px), 602px"><img class="slide" src="img/falafel-before-frying-960.jpg" srcset="img/falafel-before-frying-960.jpg 960w, img/falafel-before-frying-1280.jpg 1280w" sizes="(max-width: 720px) 84vw, (max-width: 1080px) min(72vw, 562px), 602px" width="1280" height="960" alt="Raw falafel shaped and laid out on a silver tray" loading="lazy" data-caption="Shaped and ready for the oil."></picture>
+          <picture><source type="image/avif" srcset="img/falafel-and-hummus-720.avif 720w, img/falafel-and-hummus-960.avif 960w" sizes="(max-width: 720px) 63vw, (max-width: 1080px) min(54vw, 421px), 451px"><source type="image/webp" srcset="img/falafel-and-hummus-720.webp 720w, img/falafel-and-hummus-960.webp 960w" sizes="(max-width: 720px) 63vw, (max-width: 1080px) min(54vw, 421px), 451px"><img class="slide" src="img/falafel-and-hummus-720.jpg" srcset="img/falafel-and-hummus-720.jpg 720w, img/falafel-and-hummus-960.jpg 960w" sizes="(max-width: 720px) 63vw, (max-width: 1080px) min(54vw, 421px), 451px" width="960" height="1280" alt="Two falafel on hummus with flatbread in a basket" loading="lazy" data-caption="Falafel on hummus, flatbread on the side."></picture>
+          <picture><source type="image/avif" srcset="img/chickpeas-720.avif 720w, img/chickpeas-960.avif 960w" sizes="(max-width: 720px) 63vw, (max-width: 1080px) min(54vw, 421px), 451px"><source type="image/webp" srcset="img/chickpeas-720.webp 720w, img/chickpeas-960.webp 960w" sizes="(max-width: 720px) 63vw, (max-width: 1080px) min(54vw, 421px), 451px"><img class="slide" src="img/chickpeas-720.jpg" srcset="img/chickpeas-720.jpg 720w, img/chickpeas-960.jpg 960w" sizes="(max-width: 720px) 63vw, (max-width: 1080px) min(54vw, 421px), 451px" width="960" height="960" alt="A heap of dried chickpeas" loading="lazy" data-caption="Dried chickpeas, soaked overnight before they're ground."></picture>
+          <picture><source type="image/avif" srcset="img/hummus-and-pitta-720.avif 720w, img/hummus-and-pitta-960.avif 960w" sizes="(max-width: 720px) 63vw, (max-width: 1080px) min(54vw, 421px), 451px"><source type="image/webp" srcset="img/hummus-and-pitta-720.webp 720w, img/hummus-and-pitta-960.webp 960w" sizes="(max-width: 720px) 63vw, (max-width: 1080px) min(54vw, 421px), 451px"><img class="slide" src="img/hummus-and-pitta-720.jpg" srcset="img/hummus-and-pitta-720.jpg 720w, img/hummus-and-pitta-960.jpg 960w" sizes="(max-width: 720px) 63vw, (max-width: 1080px) min(54vw, 421px), 451px" width="960" height="1275" style="object-position: 50% 60%" alt="A clay bowl of hummus with warm pitta on the side" loading="lazy" data-caption="Hummus with warm pitta."></picture>
         </button>
       </div></div></div>
     </div>
@@ -177,7 +179,7 @@
       <figure class="panel__pic r3">
         <div class="panel__rings rings">
           <div class="ring ring--1"><div class="ring ring--2"><div class="ring ring--3"><div class="ring ring--4">
-            <div class="panel__win"><img src="img/syrian-pushcart-food-vendor-on-new-york.jpg" width="1400" height="954" alt="A Syrian food vendor's pushcart on a New York street, 1916, with three men in aprons beside it" loading="lazy"></div>
+            <div class="panel__win"><picture><source type="image/avif" srcset="img/syrian-pushcart-1059.avif 1059w, img/syrian-pushcart-1400.avif 1400w" sizes="(max-width: 720px) 88vw, (max-width: 1080px) 62vw, min(44vw, 681px)"><source type="image/webp" srcset="img/syrian-pushcart-1059.webp 1059w, img/syrian-pushcart-1400.webp 1400w" sizes="(max-width: 720px) 88vw, (max-width: 1080px) 62vw, min(44vw, 681px)"><img src="img/syrian-pushcart-1059.jpg" srcset="img/syrian-pushcart-1059.jpg 1059w, img/syrian-pushcart-1400.jpg 1400w" sizes="(max-width: 720px) 88vw, (max-width: 1080px) 62vw, min(44vw, 681px)" width="1400" height="952" alt="A Syrian food vendor's pushcart on a New York street, 1916, with three men in aprons beside it" loading="lazy"></picture></div>
           </div></div></div></div>
         </div>
         <figcaption>A Syrian pushcart food vendor in <span class="nowrap">New York</span>, 1916.</figcaption>
@@ -222,7 +224,14 @@
       </div>
     </form>
   </div>
-  <div class="foot__last"><p>© 2026 Noble Falafel. Peace, love, &amp; chickpeas.</p><a class="btn btn--small btn--gold" href="#top">Back to the Top</a></div>
+  <div class="foot__last">
+    <div>
+      <p>© 2026 Noble Falafel. Peace, love, &amp; chickpeas.</p>
+      <!-- the one picture whose licence asks for a credit; every photo is CC0 or public domain -->
+      <p class="foot__credit">Frying video from <a href="https://commons.wikimedia.org/wiki/File:Amazing_Falafel_Shop_in_Tehran_-_IRAN_Street_Food_-_%D9%81%D9%84%D8%A7%D9%81%D9%84.webm">Amazing Falafel Shop in Tehran</a> by Street Food Tourists, <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+    </div>
+    <a class="btn btn--small btn--gold" href="#top">Back to the Top</a>
+  </div>
 </footer>
 
 </div>

@@ -31,6 +31,8 @@
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--text); font-size: var(--b); line-height: 1.55; }
 img { display: block; max-width: 100%; height: auto; }
+/* a <picture> only offers formats and sizes; it adds no box, so its img lays out as if it stood alone */
+picture { display: contents; }
 a { color: inherit; }
 h1, h2, h3, p, ul, figure, fieldset { margin: 0; padding: 0; }
 ul { list-style: none; }
@@ -250,6 +252,9 @@ section[id] { scroll-margin-top: 24px; }
 .foot__row input { flex: 1 1 200px; min-width: 0; height: 52px; padding: 0 20px; border: 0; border-radius: 4px 35px 4px 35px; background: var(--cream); color: var(--ink-dark); font-size: var(--b); }
 .foot__row input:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 .foot__last { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin-top: 56px; font-size: var(--s); }
+.foot__credit { margin-top: 4px; }
+.foot__credit a { text-decoration-color: rgba(241, 229, 207, .45); text-underline-offset: 3px; }
+.foot__credit a:hover { color: var(--gold); }
 
 /* ---------- tablet ---------- */
 @media (max-width: 1080px) {
