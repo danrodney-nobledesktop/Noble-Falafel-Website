@@ -151,19 +151,22 @@
 
 <!-- CATERING: clip-out coupon -->
 <section class="catering sheet" id="catering" aria-labelledby="cat-h">
-  <form class="coupon r2" data-coupon>
-    <div class="coupon__left">
-      <h2 class="coupon__h" id="cat-h">Bring the cart to your party</h2>
-      <p>Office lunches, birthdays, block parties, and weddings. We roll up with the fryer, or drop off trays ready to share. Fill in the coupon and it opens an email to us.</p>
-    </div>
-    <div class="coupon__right">
-      <div class="field"><label for="c-name">Your Name</label><input id="c-name" name="name" autocomplete="name"></div>
-      <div class="field"><label for="c-mail">Email</label><input id="c-mail" name="email" type="email" autocomplete="email"></div>
-      <div class="field"><label for="c-date">Date of the Event</label><input id="c-date" name="date"></div>
-      <div class="field"><label for="c-n">How Many People</label><input id="c-n" name="people" inputmode="numeric"></div>
-      <button class="coupon__go" type="submit">Send Catering Request</button>
-    </div>
-  </form>
+  <div class="coupon-wrap">
+    <form class="coupon" data-coupon>
+      <div class="coupon__left">
+        <h2 class="coupon__h" id="cat-h">Bring the cart to your party</h2>
+        <p>Office lunches, birthdays, block parties, and weddings. We roll up with the fryer, or drop off trays ready to share. Fill in the coupon and it opens an email to us.</p>
+      </div>
+      <div class="coupon__right">
+        <div class="field"><label for="c-name">Your Name</label><input id="c-name" name="name" autocomplete="name"></div>
+        <div class="field"><label for="c-mail">Email</label><input id="c-mail" name="email" type="email" autocomplete="email"></div>
+        <div class="field"><label for="c-date">Date of the Event</label><input id="c-date" name="date"></div>
+        <div class="field"><label for="c-n">How Many People</label><input id="c-n" name="people" inputmode="numeric"></div>
+        <button class="coupon__go" type="submit">Send Catering Request</button>
+      </div>
+    </form>
+    <div class="coupon-wipe" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+  </div>
 </section>
 
 <!-- STORY: inset panel, shaped portrait -->
@@ -172,7 +175,11 @@
     <div class="panel__left">
       <h2 class="panel__h r1" id="story-h">A cart, a fryer, fair prices</h2>
       <figure class="panel__pic r3">
-        <div class="panel__win"><img src="img/syrian-pushcart-food-vendor-on-new-york.jpg" width="1400" height="954" alt="A Syrian food vendor's pushcart on a New York street, 1916, with three men in aprons beside it" loading="lazy"></div>
+        <div class="panel__rings rings">
+          <div class="ring ring--1"><div class="ring ring--2"><div class="ring ring--3"><div class="ring ring--4">
+            <div class="panel__win"><img src="img/syrian-pushcart-food-vendor-on-new-york.jpg" width="1400" height="954" alt="A Syrian food vendor's pushcart on a New York street, 1916, with three men in aprons beside it" loading="lazy"></div>
+          </div></div></div></div>
+        </div>
         <figcaption>A Syrian pushcart food vendor in New York, 1916.</figcaption>
       </figure>
     </div>
@@ -195,8 +202,8 @@
 <!-- FOOTER: the mark built large -->
 <footer class="foot">
   <div class="blocks" role="img" aria-label="Noble Falafel">
-    <div class="blocks__row"><span style="height: 100%; background: #8E1B1F">N</span><span style="height: 78%; background: #C0232B">o</span><span style="height: 90%; background: #EE6B24">b</span><span style="height: 66%; background: #F2B024">l</span><span style="height: 84%; background: #F4E8D2">e</span></div>
-    <div class="blocks__row"><span style="height: 94%; background: #8E1B1F">F</span><span style="height: 72%; background: #C0232B">a</span><span style="height: 88%; background: #EE6B24">l</span><span style="height: 62%; background: #F2B024">a</span><span style="height: 80%; background: #F4E8D2">f</span><span style="height: 96%; background: #EE6B24">e</span><span style="height: 70%; background: #C0232B">l</span></div>
+    <div class="blocks__row"><span style="height: 100%; --c: #8E1B1F"><i></i>N</span><span style="height: 78%; --c: #C0232B"><i></i>o</span><span style="height: 90%; --c: #EE6B24"><i></i>b</span><span style="height: 66%; --c: #F2B024"><i></i>l</span><span style="height: 84%; --c: #F4E8D2"><i></i>e</span></div>
+    <div class="blocks__row"><span style="height: 94%; --c: #8E1B1F"><i></i>F</span><span style="height: 72%; --c: #C0232B"><i></i>a</span><span style="height: 88%; --c: #EE6B24"><i></i>l</span><span style="height: 62%; --c: #F2B024"><i></i>a</span><span style="height: 80%; --c: #F4E8D2"><i></i>f</span><span style="height: 96%; --c: #EE6B24"><i></i>e</span><span style="height: 70%; --c: #C0232B"><i></i>l</span></div>
   </div>
   <div class="foot__cols r2">
     <div class="foot__col"><h2>Visit</h2><p>123 Noble Street<br>New York, NY 10016</p><p>Tues–Sun, 10am–9pm<br>Closed Mondays</p></div>

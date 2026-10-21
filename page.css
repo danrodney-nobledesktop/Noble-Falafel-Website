@@ -176,7 +176,15 @@ section[id] { scroll-margin-top: 24px; }
 
 /* ---------- CATERING coupon ---------- */
 .catering { background: var(--accent); color: var(--cream); padding-block: clamp(56px, 7vw, 120px); }
-.coupon { position: relative; display: grid; grid-template-columns: 46fr 54fr; background: var(--gold); color: var(--ink-dark); border-radius: var(--r); max-width: 1180px; margin: 0 auto; min-height: 420px; }
+/* the stripes that sweep over the coupon as it arrives; hidden unless the script runs them */
+.coupon-wrap { position: relative; max-width: 1180px; margin: 0 auto; }
+.coupon-wipe { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; pointer-events: none; visibility: hidden; }
+.coupon-wipe span { flex: 1 1 0; transform: scaleX(0); }
+.coupon-wipe span:nth-child(1) { background: var(--cream); border-radius: var(--r) 999px 999px 0; }
+.coupon-wipe span:nth-child(2) { background: var(--gold); border-radius: 0 999px 999px 0; }
+.coupon-wipe span:nth-child(3) { background: var(--orange); border-radius: 0 999px 999px 0; }
+.coupon-wipe span:nth-child(4) { background: var(--maroon); border-radius: 0 999px 999px var(--r); }
+.coupon { position: relative; display: grid; grid-template-columns: 46fr 54fr; background: var(--gold); color: var(--ink-dark); border-radius: var(--r); min-height: 420px; }
 .coupon::before, .coupon::after { content: ""; position: absolute; left: 46%; width: 36px; height: 36px; margin-left: -18px; border-radius: 50%; background: var(--accent); }
 .coupon::before { top: -18px; }
 .coupon::after { bottom: -18px; }
@@ -202,10 +210,11 @@ section[id] { scroll-margin-top: 24px; }
 .panel__left { display: flex; flex-direction: column; gap: 48px; }
 .panel__h { font-family: var(--display); font-weight: 400; font-size: var(--l); line-height: 1; max-width: 11ch; color: var(--ink-dark); }
 .panel__pic { margin-top: auto; margin-bottom: calc(-1 * var(--pad) - 8vw); display: flex; align-items: center; gap: 24px; }
-.panel__pic figcaption { flex: 0 1 200px; padding-bottom: 8vw; }
-.panel__win { flex: 0 0 auto; width: min(40vw, 620px); aspect-ratio: 1; border-radius: 50%; overflow: hidden; }
-.panel__win img { width: 100%; height: 100%; object-fit: cover; object-position: 55% 50%; filter: grayscale(1) contrast(1.05); }
-.panel__pic figcaption { font-size: var(--s); }
+.panel__pic figcaption { flex: 0 1 200px; padding-bottom: 8vw; font-size: var(--s); }
+/* the photo wears the same four rings as the other circles */
+.panel__rings { flex: 0 0 auto; width: min(40vw, 620px); max-width: 100%; aspect-ratio: 1; }
+.panel__win { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; }
+.panel__win img { width: 100%; height: 100%; object-fit: cover; object-position: 55% 50%; filter: grayscale(1) contrast(1.05); transform: scale(1.08); transform-origin: 55% 62%; } /* the 1916 scan has a white edge along its top; the zoom keeps it out of the circle */
 .panel__right { display: flex; flex-direction: column; gap: 56px; align-items: flex-start; padding-top: 8px; }
 .panel__block { display: flex; flex-direction: column; gap: 12px; max-width: 26em; }
 .panel__block h3 { font-size: 21px; line-height: 1.25; font-weight: 600; }
@@ -217,7 +226,9 @@ section[id] { scroll-margin-top: 24px; }
 .blocks__row { display: flex; align-items: flex-end; gap: 4px; height: 100%; }
 .blocks__row:first-child { flex: 5 1 0; }
 .blocks__row:last-child { flex: 7 1 0; }
-.blocks span { flex: 1 1 0; color: var(--ground-2); font-family: var(--display); font-size: var(--l); line-height: 1; display: flex; align-items: flex-end; justify-content: center; padding-bottom: .12em; overflow: hidden; }
+.blocks span { flex: 1 1 0; color: var(--ground-2); font-family: var(--display); font-size: var(--l); line-height: 1; display: flex; align-items: flex-end; justify-content: center; padding-bottom: .12em; position: relative; isolation: isolate; }
+/* the colour is its own layer behind the letter, so it can rise from the floor without moving the letter */
+.blocks span i { position: absolute; inset: 0; z-index: -1; background: var(--c); transform-origin: 50% 100%; }
 .foot__cols, .foot__last { padding-inline: var(--pad); }
 .foot__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 2fr)) minmax(0, 4fr); gap: 40px; padding-top: 56px; }
 .foot__col { display: flex; flex-direction: column; gap: 12px; font-size: var(--b); line-height: 1.6; }
@@ -247,7 +258,7 @@ section[id] { scroll-margin-top: 24px; }
   .panel__right { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 48px; }
   .panel__right .btn { justify-self: start; }
   .panel__pic { order: 3; margin: 8px 0 -16vw; }
-  .panel__win { width: 56vw; }
+  .panel__rings { width: 56vw; }
   .foot__cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .foot__mail { grid-column: 1 / -1; }
 }
@@ -309,7 +320,7 @@ section[id] { scroll-margin-top: 24px; }
   .panel__right { grid-template-columns: minmax(0, 1fr); }
   .panel__pic { order: 3; flex-direction: column-reverse; align-items: flex-start; margin: 8px 0 -22vw; }
   .panel__pic figcaption { flex: none; padding: 0; }
-  .panel__win { width: 80vw; align-self: center; }
+  .panel__rings { width: 80vw; align-self: center; }
   .panel__right { gap: 36px; }
   .blocks { flex-direction: column; gap: 4px; height: auto; min-height: 0; }
   .blocks__row { height: 16svh; min-height: 110px; }
@@ -319,7 +330,8 @@ section[id] { scroll-margin-top: 24px; }
 
 /* ---------- motion ----------
    CSS keeps the simple moves (hover, press, focus, the crossfade, one slow drift).
-   The sequences (the hero opening, the frame opening, the scroll reveals) run in GSAP, page.js. */
+   The sequences (the hero and ringed circles opening, the coupon wipe, the footer bars, the scroll reveals)
+   run in GSAP, in page.js. */
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
   .slide.is-on:is(img) { animation: drift 6s linear both; }
