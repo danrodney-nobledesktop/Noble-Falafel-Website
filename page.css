@@ -191,7 +191,7 @@ section[id] { scroll-margin-top: 24px; }
 /* fields: nearly square top-left and bottom-right corners, round top-right and bottom-left */
 .coupon input { height: 54px; padding: 0 22px; border: 0; border-radius: 4px 35px 4px 35px; background: var(--gold-2); color: var(--ink-dark); font-size: var(--b); }
 .coupon input:focus-visible { outline: 3px solid var(--ink-dark); outline-offset: 2px; }
-.coupon__go { display: inline-flex; align-self: flex-start; align-items: center; justify-content: center; text-decoration: none; height: 58px; padding: 0 32px; margin-top: 6px; border: 0; border-radius: 999px; background: var(--ink-dark); color: var(--cream); font-size: var(--b); font-weight: 600; cursor: pointer; transition: background-color .18s ease, transform .12s ease; }
+.coupon__go { display: inline-flex; align-self: flex-start; align-items: center; justify-content: center; height: 58px; padding: 0 32px; margin-top: 6px; border: 0; border-radius: 999px; background: var(--ink-dark); color: var(--cream); font-size: var(--b); font-weight: 600; cursor: pointer; transition: background-color .18s ease, transform .12s ease; }
 .coupon__go:hover { background: var(--maroon); }
 .coupon__go:active { transform: scale(.98); }
 
@@ -294,12 +294,17 @@ section[id] { scroll-margin-top: 24px; }
   .fried { padding: 80px calc(var(--m) + var(--pad)) 32px; }
   .fried .frame { width: 84vw; }
   .find { grid-template-columns: 1fr; }
+  /* a thin red frame on phones, so the coupon (and its button, on one line) gets the width */
+  .catering { padding: 12px; }
   .coupon { grid-template-columns: 1fr; }
-  .coupon::before, .coupon::after { left: auto; top: 52%; margin: -18px 0 0; }
-  .coupon::before { left: -18px; }
-  .coupon::after { right: -18px; bottom: auto; }
-  .coupon__left { border-right: 0; border-bottom: 6px dotted var(--accent); padding: 28px 22px; }
-  .coupon__right { padding: 28px 22px; }
+  /* the notches sit on the dotted tear line, wherever the text above it ends */
+  .coupon::before, .coupon::after { display: none; }
+  .coupon__left::before, .coupon__left::after { content: ""; position: absolute; bottom: -13px; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); }
+  .coupon__left::before { left: -10px; }
+  .coupon__left::after { right: -10px; }
+  .coupon__left { position: relative; border-right: 0; border-bottom: 6px dotted var(--accent); padding: 28px 22px; }
+  .coupon__right { padding: 28px 16px 28px 22px; }
+  .coupon__go { padding: 0 18px; white-space: nowrap; }
   .panel__h { font-size: 8.5vw; max-width: none; }
   .panel__right { grid-template-columns: minmax(0, 1fr); }
   .panel__pic { order: 3; flex-direction: column-reverse; align-items: flex-start; margin: 8px 0 -22vw; }
