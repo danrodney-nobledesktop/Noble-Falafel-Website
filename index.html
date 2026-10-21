@@ -16,8 +16,8 @@
 
 <a class="skip" href="#menu">Skip to the Menu</a>
 
-<!-- BAR: wordmark, five links, one action -->
-<header class="bar" data-bar>
+<!-- BAR: wordmark, four links, one action -->
+<header class="bar">
   <a class="wordmark" href="#top" aria-label="Noble Falafel, back to the top">Noble Falafel</a>
   <button class="bar__toggle" type="button" aria-expanded="false" aria-controls="nav-list" data-nav-toggle>
     <span class="bar__stripes" aria-hidden="true"><i></i><i></i><i></i></span><span class="vh">Show the sections</span>
@@ -25,7 +25,6 @@
   <nav class="nav" id="nav-list" aria-label="Main">
     <ul class="nav__list" role="list">
       <li><a href="#menu">Menu</a></li>
-      <li><a href="#pita">Build a Pita</a></li>
       <li><a href="#find">Find the Cart</a></li>
       <li><a href="#catering">Catering</a></li>
       <li><a href="#story">Our Story</a></li>
@@ -41,7 +40,6 @@
     <p class="hero__sub">Noble Falafel fries every falafel to order at 123 Noble Street, New York. The classic pita is $7.</p>
     <div class="hero__acts">
       <a class="btn" href="#menu">See the Menu</a>
-      <a class="hero__link" href="#pita">Build a Pita</a>
     </div>
     <p class="status hero__status"><span class="dot" aria-hidden="true"></span><span data-status>Open Tues–Sun, 10am–9pm</span></p>
   </div>
@@ -54,41 +52,6 @@
 </section>
 
 <main>
-
-<!-- SHOWCASE: the pita on a disc, live -->
-<section class="pita sheet gap-top" id="pita" aria-labelledby="pita-h">
-  <div class="pita__disc-wrap">
-    <div class="disc" data-disc aria-hidden="true">
-      <div class="disc__layer" style="flex-grow:1;background:#D9A55B;color:#2E1A10"><span>Pita</span></div>
-      <div class="disc__layer" style="flex-grow:.7;background:#4F7A2E;color:#F1E5CF"><span>Parsley</span></div>
-      <div class="disc__layer" style="flex-grow:1;background:#E8332A;color:#2E1A10"><span>Tomato &amp; cucumber</span></div>
-      <div class="disc__layer" style="flex-grow:2.2;background:#6B3A1A;color:#F1E5CF"><span>Five falafel</span></div>
-      <div class="disc__layer" style="flex-grow:.7;background:#D9476B;color:#2E1A10"><span>Pickled turnip</span></div>
-      <div class="disc__layer" style="flex-grow:.9;background:#EFE0C0;color:#2E1A10"><span>Tahini</span></div>
-      <div class="disc__layer" style="flex-grow:1;background:#D9A55B;color:#2E1A10"><span>Pita</span></div>
-    </div>
-    <div class="pita__fact">
-      <p class="pita__price"><span data-name>Classic Pita</span> <span data-price>$7.00</span></p>
-      <p class="pita__note" data-fact>Five falafel, fried when you order, so they reach you crackling.</p>
-    </div>
-  </div>
-  <div class="pita__pick">
-    <h2 class="pita__h" id="pita-h">Pick your lunch</h2>
-    <ul class="names" role="list" data-names>
-      <li><button type="button" class="name is-on" data-dish="pita" aria-pressed="true">Classic Pita</button></li>
-      <li><button type="button" class="name" data-dish="sabich" aria-pressed="false">Sabich Pita</button></li>
-      <li><button type="button" class="name" data-dish="platter" aria-pressed="false">Falafel Platter</button></li>
-      <li><button type="button" class="name" data-dish="bowl" aria-pressed="false">Hummus Bowl</button></li>
-      <li><button type="button" class="name" data-dish="fries" aria-pressed="false">Fries &amp; Dip</button></li>
-    </ul>
-    <fieldset class="extras">
-      <legend class="extras__h">Add to it</legend>
-      <label class="chip"><input type="checkbox" data-extra="hot"> Hot sauce, free</label>
-      <label class="chip"><input type="checkbox" data-extra="amba"> Amba, +$0.50</label>
-      <label class="chip"><input type="checkbox" data-extra="more"> Two more falafel, +$1.50</label>
-    </fieldset>
-  </div>
-</section>
 
 <!-- MENU: two columns, stripe bullets -->
 <section class="menu sheet gap-top" id="menu" aria-labelledby="menu-h">
@@ -227,13 +190,6 @@
   </div>
 </section>
 
-<!-- CTA: one word is the button -->
-<a class="visit" href="https://www.google.com/maps/dir/?api=1&amp;destination=E+35th+St+%26+Lexington+Ave%2C+New+York%2C+NY+10016&amp;travelmode=walking">
-  <span class="visit__top"><span class="visit__line">Opens walking directions to 123 Noble Street. Tuesday to Sunday, 10am to 9pm.</span>
-  <svg class="visit__arrow" viewBox="0 0 48 48" aria-hidden="true"><path d="M12 36 36 12M16 12h20v20" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-  <span class="visit__word">Visit</span>
-</a>
-
 </main>
 
 <!-- FOOTER: the mark built large -->
@@ -254,21 +210,6 @@
       </div>
     </form>
   </div>
-  <div class="credits">
-  <h2 class="credits__h">Pictures and footage</h2>
-  <p>Via Wikimedia Commons unless noted.</p>
-  <ul class="credits__list" role="list">
-    <li><a href="https://commons.wikimedia.org/wiki/File:Falafel_1.JPG">Falafel 1</a> by Miansari66, CC0</li>
-    <li><a href="https://commons.wikimedia.org/wiki/File:Falafels_2.jpg">Falafels 2</a> by Popo le Chien, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a></li>
-    <li><a href="https://commons.wikimedia.org/wiki/File:Bowl_of_falafel.jpg">Bowl of falafel</a> by EvanProdromou, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></li>
-    <li><a href="https://commons.wikimedia.org/wiki/File:Falafel_frying_in_Aleppo.jpg">Falafel frying in Aleppo</a> by Preacher lad, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></li>
-    <li><a href="https://commons.wikimedia.org/wiki/File:Falafel_and_Homemade_Hummus_-_Lavash_2024-09-11.jpg">Falafel and Homemade Hummus</a> by Andy Li, CC0</li>
-    <li><a href="https://commons.wikimedia.org/wiki/File:Ordinary_chickpeas_in_a_ceramic_bowl.jpg">Ordinary chickpeas in a ceramic bowl</a> by AlixSaz, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></li>
-    <li><a href="https://commons.wikimedia.org/wiki/File:Homemade_hummus_and_pita_03.jpg">Homemade hummus and pita 03</a> by Satdeep Gill, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></li>
-    <li>Video excerpt from <a href="https://commons.wikimedia.org/wiki/File:Amazing_Falafel_Shop_in_Tehran_-_IRAN_Street_Food_-_%D9%81%D9%84%D8%A7%D9%81%D9%84.webm">Amazing Falafel Shop in Tehran</a> by Street Food Tourists, <a href="https://creativecommons.org/licenses/by/3.0">CC BY 3.0</a></li>
-    <li><a href="https://commons.wikimedia.org/wiki/File:Syrian_pushcart_food_vendor_on_New_York_City_street_LCCN2016646376.tif">Syrian pushcart food vendor on New York City street</a>, Bain Collection, public domain</li>
-  </ul>
-</div>
   <div class="foot__last"><p>© 2026 Noble Falafel. Peace, love &amp; chickpeas.</p><a class="btn btn--small" href="#top">Back to the Top</a></div>
 </footer>
 

@@ -1,78 +1,4 @@
 (function () {
-  var DISHES = {
-    pita: { name: 'Classic Pita', price: 7, fact: 'Five falafel, fried when you order, so they reach you crackling.',
-      layers: [['Pita', '#D9A55B', 1], ['Parsley', '#4F7A2E', .7], ['Tomato & cucumber', '#E8332A', 1], ['Five falafel', '#6B3A1A', 2.2], ['Pickled turnip', '#D9476B', .7], ['Tahini', '#EFE0C0', .9], ['Pita', '#D9A55B', 1]] },
-    sabich: { name: 'Sabich Pita', price: 8, fact: 'Fried eggplant and egg instead of falafel, with sour mango amba.',
-      layers: [['Pita', '#D9A55B', 1], ['Amba', '#E9A21F', .7], ['Chopped salad', '#E8332A', 1], ['Fried eggplant', '#4B2A3A', 1.6], ['Egg', '#F6D25A', .9], ['Tahini', '#EFE0C0', .8], ['Pita', '#D9A55B', 1]] },
-    platter: { name: 'Falafel Platter', price: 11, fact: 'Six falafel over vermicelli rice, for when lunch needs a fork.',
-      layers: [['Salad', '#8DB255', 1], ['Six falafel', '#6B3A1A', 2.2], ['Hummus', '#D9B77E', 1.2], ['Vermicelli rice', '#F4E8D2', 1.6], ['Pita on the side', '#D9A55B', 1]] },
-    bowl: { name: 'Hummus Bowl', price: 9, fact: 'Warm whole chickpeas on hummus. Gluten-free without the pita.',
-      layers: [['Olive oil & sumac', '#C0232B', .6], ['Whole chickpeas', '#E3C27A', 1.2], ['Hummus', '#D9B77E', 2.6], ['Warm pita', '#D9A55B', 1]] },
-    fries: { name: 'Fries & Dip', price: 5, fact: 'Seasoned fries with garlic sauce or spicy sauce. Gluten-free.',
-      layers: [['Spicy sauce', '#EE6B24', .8], ['Seasoned fries', '#F2B024', 3], ['Garlic sauce', '#F4E8D2', .9]] }
-  };
-  var EXTRAS = {
-    hot: ['Hot sauce', '#EE6B24', .55, 0],
-    amba: ['Amba', '#E9A21F', .55, .5],
-    more: ['Two more falafel', '#82481F', .9, 1.5]
-  };
-
-  function lum(hex) {
-    var c = [1, 3, 5].map(function (i) { var v = parseInt(hex.substr(i, 2), 16) / 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); });
-    return .2126 * c[0] + .7152 * c[1] + .0722 * c[2];
-  }
-  function inkFor(hex) { var L = lum(hex); return (L + .05) / .067 >= (.84) / (L + .05) ? '#2E1A10' : '#F1E5CF'; }
-  function money(n) { return '$' + n.toFixed(2); }
-
-  var disc = document.querySelector('[data-disc]');
-  if (disc) {
-    var chosen = 'pita', extras = {};
-    var nameEl = document.querySelector('[data-name]'), priceEl = document.querySelector('[data-price]'), factEl = document.querySelector('[data-fact]');
-    var buttons = [].slice.call(document.querySelectorAll('[data-dish]'));
-
-    function layersFor(id) {
-      var d = DISHES[id], out = d.layers.slice(), add = [];
-      Object.keys(extras).forEach(function (k) { if (extras[k]) add.push(EXTRAS[k]); });
-      out.splice(1, 0, ...add);
-      return out;
-    }
-    function priceFor(id) {
-      var p = DISHES[id].price;
-      Object.keys(extras).forEach(function (k) { if (extras[k]) p += EXTRAS[k][3]; });
-      return p;
-    }
-    function paint(id) {
-      disc.innerHTML = layersFor(id).map(function (l) {
-        return '<div class="disc__layer" style="flex-grow:' + l[2] + ';background:' + l[1] + ';color:' + inkFor(l[1]) + '"><span>' + l[0].replace('&', '&amp;') + '</span></div>';
-      }).join('');
-      nameEl.textContent = DISHES[id].name;
-      priceEl.textContent = money(priceFor(id));
-      factEl.textContent = DISHES[id].fact;
-    }
-    var swapTimer;
-    function show(id) {
-      clearTimeout(swapTimer);
-      if (still) { paint(id); return; }
-      disc.classList.add('is-swapping');
-      swapTimer = setTimeout(function () { paint(id); disc.classList.remove('is-swapping'); }, 160);
-    }
-    buttons.forEach(function (b) {
-      var id = b.getAttribute('data-dish');
-      b.addEventListener('click', function () {
-        chosen = id;
-        buttons.forEach(function (o) { var on = o === b; o.classList.toggle('is-on', on); o.setAttribute('aria-pressed', on); });
-        show(id);
-      });
-      if (window.matchMedia('(hover: hover)').matches) {
-        b.addEventListener('mouseenter', function () { if (id !== chosen) show(id); });
-        b.addEventListener('mouseleave', function () { if (id !== chosen) show(chosen); });
-      }
-    });
-    [].forEach.call(document.querySelectorAll('[data-extra]'), function (i) {
-      i.addEventListener('change', function () { extras[i.getAttribute('data-extra')] = i.checked; show(chosen); });
-    });
-  }
-
   // open or closed, in New York time
   function statusText() {
     var parts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: false }).formatToParts(new Date());
@@ -141,8 +67,6 @@
       // starts once the band is well into view and is done by the middle of the screen
       gsap.from('.groove span', { scaleX: 0.15, transformOrigin: 'left center', ease: 'none', stagger: 0.08,
         scrollTrigger: { trigger: '.groove', start: 'top 85%', end: 'top 45%', scrub: 0.6 } });
-      gsap.from('.visit__word', { yPercent: 18, ease: 'none',
-        scrollTrigger: { trigger: '.visit', start: 'top 90%', end: 'top 40%', scrub: true } });
       gsap.from('.blocks span', { scaleY: 0.35, transformOrigin: 'bottom center', ease: 'none', stagger: 0.03,
         scrollTrigger: { trigger: '.blocks', start: 'top bottom', end: 'bottom 85%', scrub: true } });
     }
