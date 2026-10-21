@@ -21,8 +21,12 @@
   function tick() {
     var text = statusText();
     [].forEach.call(statusLines, function (el) { el.textContent = text; });
-    // the dot goes green while the fryer is on, and is re-checked with the text every minute
-    if (heroStatus) heroStatus.classList.toggle('is-open', /^Open now/.test(text));
+    // a dot while the fryer is on, an X while it is off, re-checked with the text every minute
+    if (heroStatus) {
+      var frying = /^Open now/.test(text);
+      heroStatus.classList.toggle('is-open', frying);
+      heroStatus.classList.toggle('is-closed', !frying);
+    }
   }
   if (statusLines.length) { tick(); setInterval(tick, 60000); }
 

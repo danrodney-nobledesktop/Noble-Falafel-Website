@@ -84,8 +84,13 @@ section[id] { scroll-margin-top: 24px; }
 .hero__sub { font-size: 21px; line-height: 1.45; max-width: 26ch; color: var(--ink); }
 .hero__acts { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 4px; }
 .status { display: flex; align-items: center; gap: 12px; font-size: var(--b); font-weight: 500; }
-.dot { flex: none; width: 16px; height: 16px; border-radius: 50%; background: var(--gold); border: 4px solid var(--orange); }
-.status.is-open .dot { background: #9FD36A; }
+/* open is a dot, closed is an X: the shape carries the meaning, not only the colour. Neither shows until the
+   script has worked out which applies, so the fixed hours shown without it never get a misleading mark */
+.dot { display: none; flex: none; position: relative; width: 16px; height: 16px; }
+.status.is-open .dot { display: block; border-radius: 50%; background: #9FD36A; border: 4px solid var(--orange); }
+.status.is-closed .dot { display: block; }
+.status.is-closed .dot::before, .status.is-closed .dot::after { content: ""; position: absolute; left: 50%; top: 50%; width: 4px; height: 20px; margin: -10px 0 0 -2px; border-radius: 2px; background: var(--orange); transform: rotate(45deg); }
+.status.is-closed .dot::after { transform: rotate(-45deg); }
 .hero__stripes { position: relative; z-index: 1; margin-top: auto; display: flex; flex-direction: column; gap: 10px; padding-bottom: clamp(40px, 7vh, 72px); }
 .hero__stripes span { display: block; height: clamp(16px, 2vw, 28px); transform-origin: left center; }
 .hero__stripes span:nth-child(1) { background: var(--gold); }
