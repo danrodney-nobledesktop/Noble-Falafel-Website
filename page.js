@@ -187,20 +187,25 @@
     });
   }
 
-  // the bar's link for the section in the middle of the screen is marked as current
+  // the bar's link is marked as current only while its own section covers the middle of the screen, so the
+  // mark clears over the hero and over sections without a link, instead of sticking to the last one passed
   var links = [].slice.call(document.querySelectorAll('.nav__list a'));
-  if ('IntersectionObserver' in window) {
-    var spy = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        links.forEach(function (a) {
-          if (a.getAttribute('href') === '#' + entry.target.id) a.setAttribute('aria-current', 'true');
-          else a.removeAttribute('aria-current');
-        });
-      });
-    }, { rootMargin: '-45% 0px -50% 0px' });
-    links.forEach(function (a) { var section = document.querySelector(a.getAttribute('href')); if (section) spy.observe(section); });
-  }
+  var linked = links.map(function (a) { return { link: a, section: document.querySelector(a.getAttribute('href')) }; })
+    .filter(function (pair) { return pair.section; });
+  var spyQueued = false;
+  var markCurrent = function () {
+    spyQueued = false;
+    var middle = window.innerHeight / 2;
+    linked.forEach(function (pair) {
+      var box = pair.section.getBoundingClientRect();
+      if (box.top <= middle && box.bottom >= middle) pair.link.setAttribute('aria-current', 'true');
+      else pair.link.removeAttribute('aria-current');
+    });
+  };
+  var queueSpy = function () { if (!spyQueued) { spyQueued = true; requestAnimationFrame(markCurrent); } };
+  window.addEventListener('scroll', queueSpy, { passive: true });
+  window.addEventListener('resize', queueSpy);
+  markCurrent();
 
   // forms open an email with the visitor's details written in (there is no form backend yet)
   var coupon = document.querySelector('[data-coupon]');
