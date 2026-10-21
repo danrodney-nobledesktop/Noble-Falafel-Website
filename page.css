@@ -39,6 +39,8 @@ button, input { font: inherit; color: inherit; }
 ::selection { background: var(--gold); color: var(--ink-dark); }
 :focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 [tabindex="-1"]:focus { outline: none; }
+/* keeps a phrase on one line with an ordinary space; Shrikhand's non-breaking space is three times as wide */
+.nowrap { white-space: nowrap; }
 .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .nf { overflow: clip; }
 section[id] { scroll-margin-top: 24px; }
