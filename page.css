@@ -290,8 +290,7 @@ section[id] { scroll-margin-top: 24px; }
 
 /* the bar folds into a dropdown once the links stop fitting */
 @media (max-width: 960px) {
-  .js .bar__toggle { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin-left: auto; padding: 0; border: 0; border-radius: 999px; background: var(--ground-2); cursor: pointer; transition: background-color .18s ease, transform .12s ease; }
-  .js .bar__toggle:hover { background: #3A2316; }
+  .js .bar__toggle { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin-left: auto; padding: 0; border: 0; border-radius: 999px; background: transparent; cursor: pointer; transition: transform .12s ease; } /* no fill, but still round so the focus ring is a circle */
   .js .bar__toggle:active { transform: scale(.94); }
   /* open, the stripes slide across so their right ends line up: the mirror of the closed, left-aligned stack.
      The stack is 26px wide, so the 80% and 60% stripes move 5.2px and 10.4px */
