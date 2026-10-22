@@ -36,6 +36,8 @@
   var frame = document.querySelector('[data-frame]');
   if (frame) {
     var slides = frame.querySelectorAll('.slide'), cap = frame.querySelector('[data-frame-cap]');
+    var now = frame.querySelector('[data-frame-now]'), say = frame.querySelector('[data-frame-say]');
+    var describe = function (slide) { return slide.getAttribute('alt') || slide.getAttribute('data-alt') || ''; };
     var video = frame.querySelector('video'), current = 0, timer = null, seen = false;
     var syncVideo = function () {
       if (!video) return;
@@ -49,11 +51,13 @@
       current = (n + slides.length) % slides.length;
       slides[current].classList.add('is-on');
       cap.textContent = slides[current].getAttribute('data-caption');
+      if (now) now.textContent = describe(slides[current]);
       syncVideo();
     };
     var stop = function () { clearInterval(timer); timer = null; };
     var run = function () { stop(); if (!still && seen && !document.hidden) timer = setInterval(function () { show(current + 1); }, 3200); };
-    frame.querySelector('.frame__win').addEventListener('click', function () { show(current + 1); run(); });
+    // a screen reader hears the new picture when someone moves the slideshow on, never on the timer
+    frame.querySelector('.frame__win').addEventListener('click', function () { show(current + 1); run(); if (say) say.textContent = describe(slides[current]); });
     document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else run(); syncVideo(); });
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) { seen = entries[0].isIntersecting; if (seen) run(); else stop(); syncVideo(); }).observe(frame);
