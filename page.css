@@ -364,7 +364,8 @@ section[id] { scroll-margin-top: 24px; }
   html { scroll-behavior: smooth; }
   .slide.is-on:is(img) { animation: drift 6s linear both; }
   /* held back until the hero timeline starts; the head script lets go after 3s whatever happens */
-  .motion .hero__copy > *, .motion .hero__stripes, .motion .hero__disc { visibility: hidden; }
+  /* opacity, not visibility, so See the Menu can be reached by Tab even before the hero has played */
+  .motion .hero__copy > *, .motion .hero__stripes, .motion .hero__disc { opacity: 0; }
 }
 @keyframes drift { from { transform: scale(1.0); } to { transform: scale(1.08); } }
 

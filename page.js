@@ -82,7 +82,7 @@
     };
 
     gsap.timeline({ defaults: { ease: 'power3.out' }, onStart: function () { root.classList.remove('motion'); } })
-      .from('.hero__copy > *', { autoAlpha: 0, y: 26, duration: 0.8, stagger: 0.08 }, 0)
+      .from('.hero__copy > *', { opacity: 0, y: 26, duration: 0.8, stagger: 0.08 }, 0)
       .from('.hero__title span', { y: 26, duration: 0.8, stagger: 0.08 }, 0);
 
     // the circle and its stripes open once they are on screen: at once on a wide screen, where they sit beside
@@ -104,21 +104,30 @@
 
       // the catering coupon arrives behind the page's stripes: they sweep across one after another, the coupon
       // appears underneath, and they carry on off the far side. It waits hidden until it scrolls in.
-      gsap.set('.coupon', { autoAlpha: 0 });
-      playOnReturn('.coupon-wrap', gsap.timeline({ paused: true })
+      // the coupon and the reveals below fade with opacity, never visibility, so Tab can always reach what is in them
+      gsap.set('.coupon', { opacity: 0 });
+      var couponIn = gsap.timeline({ paused: true })
         .set('.coupon-wipe', { autoAlpha: 1 }, 0.01) // after time 0, so a rewound wipe is switched off
         .fromTo('.coupon-wipe span', { scaleX: 0, transformOrigin: 'left center' },
           { scaleX: 1, duration: 0.45, ease: 'power2.in', stagger: 0.08, immediateRender: false })
-        .set('.coupon', { autoAlpha: 1 })
+        .set('.coupon', { opacity: 1 })
         .set('.coupon-wipe span', { transformOrigin: 'right center' })
         .to('.coupon-wipe span', { scaleX: 0, duration: 0.5, ease: 'power2.out', stagger: 0.08 })
-        .set('.coupon-wipe', { autoAlpha: 0 }), 'top 85%');
+        .set('.coupon-wipe', { autoAlpha: 0 });
+      playOnReturn('.coupon-wrap', couponIn, 'top 85%');
 
       // each heading, paragraph and picture rises in as it reaches the screen, not when its section does; on a
       // phone a section is several screens tall, so this keeps the motion where the reader is looking
-      gsap.set('.r1, .r2, .r3', { autoAlpha: 0, y: 24 });
+      gsap.set('.r1, .r2, .r3', { opacity: 0, y: 24 });
       ScrollTrigger.batch('.r1, .r2, .r3', { start: 'top 92%', once: true,
-        onEnter: function (els) { gsap.to(els, { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.08, overwrite: true }); } });
+        onEnter: function (els) { gsap.to(els, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.08, overwrite: true }); } });
+
+      // anything Tab lands in finishes appearing at once, so focus never sits on something still faded out
+      document.addEventListener('focusin', function (e) {
+        var item = e.target.closest('.r1, .r2, .r3');
+        if (item && +getComputedStyle(item).opacity < 1) gsap.to(item, { opacity: 1, y: 0, duration: 0.15, overwrite: true });
+        if (e.target.closest('.coupon') && couponIn.progress() < 1) couponIn.progress(1);
+      });
 
       // the band below the menu starts once well into view and is done by the middle of the screen
       gsap.from('.groove span', { scaleX: 0.15, transformOrigin: 'left center', ease: 'none', stagger: 0.08,
@@ -150,7 +159,7 @@
     if (window.gsap) {
       gsap.globalTimeline.getChildren(true, true, true).forEach(function (t) { t.progress(1).kill(); });
       // anything still waiting to be revealed is shown outright
-      gsap.set('.r1, .r2, .r3, .coupon', { autoAlpha: 1, y: 0 });
+      gsap.set('.r1, .r2, .r3, .coupon', { opacity: 1, y: 0 });
       gsap.set('.coupon-wipe', { autoAlpha: 0 });
     }
     stopSlides();
@@ -171,7 +180,7 @@
     target.focus({ preventScroll: true });
   });
 
-  // the bar: a dropdown on narrow screens that closes on a link, on Escape, or on a tap outside it
+  // the bar: a dropdown on narrow screens that closes on a link, on Escape, on a tap outside it, or when focus leaves it
   var toggle = document.querySelector('[data-nav-toggle]'), nav = document.getElementById('nav-list');
   if (toggle && nav) {
     var isOpen = function () { return toggle.getAttribute('aria-expanded') === 'true'; };
@@ -188,6 +197,8 @@
     toggle.addEventListener('click', function () { setNav(!isOpen()); });
     nav.addEventListener('click', function (e) { if (e.target.closest('a')) setNav(false); });
     document.addEventListener('click', function (e) { if (isOpen() && !nav.contains(e.target) && !toggle.contains(e.target)) setNav(false); });
+    // tabbing out of the open menu closes it, so it never covers whatever takes focus next
+    document.addEventListener('focusin', function (e) { if (isOpen() && !nav.contains(e.target) && !toggle.contains(e.target)) setNav(false); });
     document.addEventListener('keydown', function (e) {
       if (e.key !== 'Escape' || !isOpen()) return;
       var focusWasInside = nav.contains(document.activeElement);
