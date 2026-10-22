@@ -64,8 +64,8 @@ section[id] { scroll-margin-top: 24px; }
 .sec-h { font-family: var(--display); font-weight: 400; font-size: var(--l); line-height: 1; letter-spacing: -0.01em; }
 
 /* ---------- BAR ---------- */
-.skip { position: absolute; left: var(--m); top: -80px; z-index: 30; padding: 12px 20px; border-radius: 999px; background: var(--gold); color: var(--ink-dark); font-weight: 600; text-decoration: none; }
-.skip:focus { top: 12px; }
+.skip { position: absolute; left: var(--m); top: -80px; z-index: 30; padding: 6px 14px; border-radius: 999px; background: var(--gold); color: var(--ink-dark); font-size: 15px; font-weight: 600; line-height: 1.4; text-decoration: none; }
+.skip:focus { top: 8px; }
 .bar { position: absolute; top: 0; left: 0; right: 0; z-index: 20; display: flex; align-items: center; gap: 28px; height: var(--bar); padding: 0 var(--m); }
 .wordmark { flex: 0 0 auto; font-family: var(--display); font-size: 21px; line-height: 1; color: var(--gold); text-decoration: none; }
 .nav { flex: 1 1 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
