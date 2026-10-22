@@ -20,7 +20,15 @@
   var heroStatus = document.querySelector('.hero__status');
   function tick() {
     var text = statusText();
-    [].forEach.call(statusLines, function (el) { el.textContent = text; });
+    // the time left, "(3h 45m left)", is kept on one line so it never splits across two on a phone
+    var left = /^(.*?)(\([^)]*\))$/.exec(text);
+    [].forEach.call(statusLines, function (el) {
+      if (!left) { el.textContent = text; return; }
+      var together = document.createElement('span');
+      together.className = 'nowrap';
+      together.textContent = left[2];
+      el.replaceChildren(document.createTextNode(left[1]), together);
+    });
     // a dot while the fryer is on, an X while it is off, re-checked with the text every minute
     if (heroStatus) {
       var frying = /^Open now/.test(text);
