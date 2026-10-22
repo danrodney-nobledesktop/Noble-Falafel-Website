@@ -39,7 +39,11 @@ ul { list-style: none; }
 fieldset { border: 0; min-width: 0; }
 button, input { font: inherit; color: inherit; }
 ::selection { background: var(--gold); color: var(--ink-dark); }
+/* a gold focus ring, except where gold would fade: dark brown on the gold and light-orange sections (8.66:1
+   and 7.61:1), and cream on the bar's Get Directions, which sits over the hero circle's red rings (4.93:1) */
 :focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+.find :focus-visible, .coupon :focus-visible, .story :focus-visible { outline-color: var(--ink-dark); }
+.btn--bar:focus-visible { outline-color: var(--cream); }
 [tabindex="-1"]:focus { outline: none; }
 /* keeps a phrase on one line with an ordinary space; Shrikhand's non-breaking space is three times as wide */
 .nowrap { white-space: nowrap; }
@@ -154,6 +158,11 @@ section[id] { scroll-margin-top: 24px; }
 .frame { display: flex; flex-direction: column; gap: 18px; }
 .frame__disc { width: min(100%, 600px); aspect-ratio: 1; margin-inline: auto; }
 .frame__win { cursor: pointer; }
+/* the opening animation clips the circle with clip-path, which would clip its focus ring too, so the ring is
+   drawn around the whole rainbow instead */
+.frame__win:focus-visible { outline: none; }
+.frame__disc { border-radius: 50%; }
+.frame__disc:has(.frame__win:focus-visible) { outline: 3px solid var(--gold); outline-offset: 3px; }
 .slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .7s ease; }
 .slide.is-on { opacity: 1; }
 .frame__cap { min-height: 1.5em; font-size: var(--s); text-align: center; }
@@ -250,7 +259,6 @@ section[id] { scroll-margin-top: 24px; }
 .foot__col a:hover { color: var(--gold); }
 .foot__row { display: flex; flex-wrap: wrap; gap: 10px; }
 .foot__row input { flex: 1 1 200px; min-width: 0; height: 52px; padding: 0 20px; border: 0; border-radius: 4px 35px 4px 35px; background: var(--cream); color: var(--ink-dark); font-size: var(--b); }
-.foot__row input:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 .foot__last { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin-top: 56px; font-size: var(--s); }
 .foot__credit { margin-top: 4px; }
 .foot__credit a { text-decoration-color: rgba(241, 229, 207, .45); text-underline-offset: 3px; }
